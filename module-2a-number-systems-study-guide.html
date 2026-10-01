@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SECR1013 Digital Logic — Module 2a Number Systems Study Guide</title>
+<style>
+:root{--m:#7a1735;--g:#c99725;--bg:#faf8f4;--ink:#202124}
+*{box-sizing:border-box}body{margin:0;font-family:Arial,sans-serif;background:var(--bg);color:var(--ink);line-height:1.58}
+main{max-width:1050px;margin:auto;padding:30px}header{background:var(--m);color:white;padding:30px;border-bottom:8px solid var(--g)}
+h1{margin:0 0 8px}h2{color:var(--m);border-bottom:2px solid #ddd;padding-bottom:7px;margin-top:32px}
+h3{color:#5c1329}.card{background:white;border-left:5px solid var(--g);padding:14px 18px;margin:14px 0}
+table{width:100%;border-collapse:collapse;background:white;margin:14px 0}th,td{border:1px solid #bbb;padding:9px}th{background:#eee}
+code{background:#eee;padding:2px 5px}.ans{background:#edf7ee;border-left:4px solid #4d8b57;padding:10px 14px;margin:8px 0}
+.warn{background:#fff6dd;border-left:5px solid var(--g);padding:12px 15px}
+.small{font-size:.92em;color:#555}
+</style></head>
+<body><header><h1>SECR1013 Digital Logic</h1><div>Module 2a — Number Systems</div></header><main>
+
+<h2>1. Chapter Overview</h2>
+<p>This module introduces positional number systems and conversion among decimal, binary, octal and hexadecimal numbers, including whole-number and fractional conversions.</p>
+<div class="card"><strong>Main idea:</strong> A number's value depends on its <strong>base/radix</strong>, its allowed digits, and the positional weight of each digit.</div>
+
+<h2>2. Number Systems at a Glance</h2>
+<table><tr><th>System</th><th>Base</th><th>Digits / Symbols</th></tr>
+<tr><td>Binary</td><td>2</td><td>0, 1</td></tr>
+<tr><td>Octal</td><td>8</td><td>0–7</td></tr>
+<tr><td>Decimal</td><td>10</td><td>0–9</td></tr>
+<tr><td>Hexadecimal</td><td>16</td><td>0–9, A–F</td></tr></table>
+<p>For base <em>B</em>, the permitted digits range from 0 to <em>B−1</em>. Positional notation expands a number as a sum of each digit multiplied by a power of the base.</p>
+
+<h2>3. Essential Terminology</h2>
+<ul>
+<li><strong>Base / radix:</strong> the base of the numbering system.</li>
+<li><strong>Integer part:</strong> digits to the left of the radix point.</li>
+<li><strong>Fraction part:</strong> digits to the right of the radix point.</li>
+<li><strong>Most significant digit/bit (MSD/MSB):</strong> highest positional significance.</li>
+<li><strong>Least significant digit/bit (LSD/LSB):</strong> lowest positional significance.</li>
+</ul>
+
+<h2>4. Positional Value Method — Any Base → Decimal</h2>
+<div class="card"><strong>Rule:</strong> Multiply every digit by its corresponding base power, then add all values.</div>
+<p>General pattern: <code>... c₂B² + c₁B¹ + c₀B⁰ + c₋₁B⁻¹ + c₋₂B⁻² ...</code></p>
+<p><strong>Binary example from the module:</strong><br>
+<code>110100.011₂ = 32 + 16 + 4 + 0.25 + 0.125 = 52.375₁₀</code></p>
+<p><strong>Octal:</strong> weights use powers of 8. <strong>Hexadecimal:</strong> weights use powers of 16, with A–F representing hexadecimal symbols.</p>
+
+<h2>5. Decimal Whole Number → Another Base</h2>
+<h3>Successive Division</h3>
+<ol>
+<li>Divide the decimal whole number by the required base.</li>
+<li>Record the remainder.</li>
+<li>Divide the quotient again by the same base.</li>
+<li>Repeat until the quotient becomes 0.</li>
+<li>Read the remainders <strong>from bottom to top</strong>.</li>
+</ol>
+<div class="card"><strong>Example:</strong> 82₁₀ → base 8. Remainders are read bottom-up to obtain <strong>122₈</strong>.</div>
+
+<h2>6. Decimal Fraction → Another Base</h2>
+<h3>Successive Multiplication</h3>
+<ol>
+<li>Multiply the fraction by the required base.</li>
+<li>Separate the resulting whole part from the new fraction.</li>
+<li>Repeat using the new fractional part.</li>
+<li>Stop when the fraction becomes 0 or the required precision is reached.</li>
+<li>Read the whole-number results <strong>from top to bottom</strong>.</li>
+</ol>
+<div class="card"><strong>Module example:</strong> <code>0.3125₁₀ = 0.0101₂</code>.</div>
+
+<h2>7. Whole + Fraction Conversion</h2>
+<p>Treat the two parts separately:</p>
+<table><tr><th>Part</th><th>Decimal → Other Base</th></tr>
+<tr><td>Whole / integer</td><td>Successive division</td></tr>
+<tr><td>Fraction</td><td>Successive multiplication</td></tr></table>
+<div class="warn"><strong>Suggested memory aid:</strong> <strong>D↓, M↓</strong> — Division answers are collected bottom-to-top; Multiplication integer results are collected top-to-bottom.</div>
+
+<h2>8. Binary ↔ Octal / Hexadecimal Shortcut</h2>
+<table><tr><th>Conversion</th><th>Grouping Rule</th><th>Reason shown in module</th></tr>
+<tr><td>Binary ↔ Octal</td><td>3 bits per octal digit</td><td>2³ = 8</td></tr>
+<tr><td>Binary ↔ Hexadecimal</td><td>4 bits per hex digit</td><td>2⁴ = 16</td></tr></table>
+<p>For a binary whole number, grouping starts from the radix point toward the <strong>left</strong>. For a binary fraction, grouping starts from the radix point toward the <strong>right</strong>. Add zeros when needed to complete the outermost group.</p>
+<p>To convert octal or hexadecimal to binary, convert each source digit into its corresponding 3-bit or 4-bit binary group. The module recommends binary as an intermediate representation when converting octal ↔ hexadecimal.</p>
+
+<h2>9. Quick Recall</h2>
+<div class="card">
+<strong>BASE → DIGITS → WEIGHTS → CONVERT</strong><br>
+Binary: 2 → 0–1 → powers of 2<br>
+Octal: 8 → 0–7 → powers of 8<br>
+Decimal: 10 → 0–9 → powers of 10<br>
+Hex: 16 → 0–9, A–F → powers of 16
+</div>
+
+<h2>10. Common Mistakes</h2>
+<ul>
+<li>Using a digit that is invalid for the stated base.</li>
+<li>Forgetting that fractional positions use negative powers such as B⁻¹ and B⁻².</li>
+<li>Reading successive-division remainders in the wrong direction.</li>
+<li>Mixing the whole-number and fractional conversion procedures.</li>
+<li>Grouping binary into 4 bits for octal or 3 bits for hexadecimal—the correct grouping is octal = 3, hexadecimal = 4.</li>
+<li>Grouping fractional binary from the wrong direction; start at the radix point and move right.</li>
+</ul>
+
+<h2>11. Study Priorities</h2>
+<ol>
+<li>Memorize bases and valid symbols.</li>
+<li>Understand positional weights before memorizing conversion procedures.</li>
+<li>Master any-base → decimal using positional expansion.</li>
+<li>Master decimal whole → base using successive division.</li>
+<li>Master decimal fraction → base using successive multiplication.</li>
+<li>Practice 3-bit octal and 4-bit hexadecimal grouping until automatic.</li>
+</ol>
+
+<h2>12. Practice Questions + Model Answers</h2>
+<p><strong>Q1.</strong> Express 567.23₁₀ as positional values.</p>
+<div class="ans"><strong>Answer:</strong> 5×10² + 6×10¹ + 7×10⁰ + 2×10⁻¹ + 3×10⁻².</div>
+
+<p><strong>Q2.</strong> Convert 110100.011₂ to decimal.</p>
+<div class="ans"><strong>Answer:</strong> 32 + 16 + 4 + 0.25 + 0.125 = <strong>52.375₁₀</strong>.</div>
+
+<p><strong>Q3.</strong> Convert 42₁₀ to binary using successive division.</p>
+<div class="ans"><strong>Answer:</strong> <strong>101010₂</strong>.</div>
+
+<p><strong>Q4.</strong> Convert 0.3125₁₀ to binary.</p>
+<div class="ans"><strong>Answer:</strong> <strong>0.0101₂</strong>.</div>
+
+<p><strong>Q5.</strong> How many binary bits correspond to one octal digit and one hexadecimal digit?</p>
+<div class="ans"><strong>Answer:</strong> Octal = <strong>3 bits</strong>; hexadecimal = <strong>4 bits</strong>.</div>
+
+<p><strong>Q6.</strong> Convert AF90.7B₁₆ to binary.</p>
+<div class="ans"><strong>Answer:</strong> A=1010, F=1111, 9=1001, 0=0000, 7=0111, B=1011 → <strong>1010111110010000.01111011₂</strong>.</div>
+
+<p><strong>Q7.</strong> Convert 45.27₈ to binary.</p>
+<div class="ans"><strong>Answer:</strong> 4=100, 5=101, 2=010, 7=111 → <strong>100101.010111₂</strong>.</div>
+
+<h2>13. Final Exam Recap</h2>
+<div class="card"><strong>Any base → Decimal:</strong> positional powers.<br>
+<strong>Decimal whole → Base:</strong> successive division.<br>
+<strong>Decimal fraction → Base:</strong> successive multiplication.<br>
+<strong>Binary ↔ Octal:</strong> groups of 3.<br>
+<strong>Binary ↔ Hex:</strong> groups of 4.<br>
+<strong>Octal ↔ Hex:</strong> use binary as the intermediate representation.</div>
+<p class="small">Prepared directly from SECR1013 Digital Logic, Module 2a: Number Systems.</p>
+</main></body></html>

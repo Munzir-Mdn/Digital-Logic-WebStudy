@@ -1,0 +1,500 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SECR1013 Module 6 — Functions of Combinational Logic</title>
+<style>
+:root{--m:#781633;--g:#c99a2e;--bg:#faf8f4;--ink:#202124;--green:#edf7ee;--blue:#eef5ff;--red:#fff0ef}
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,sans-serif;background:var(--bg);color:var(--ink);line-height:1.6}
+header{background:var(--m);color:white;padding:34px;border-bottom:8px solid var(--g)}
+main{max-width:1150px;margin:auto;padding:30px}
+h1{margin:0} h2{color:var(--m);border-bottom:2px solid #ddd;padding-bottom:7px;margin-top:36px}
+h3{color:#5c1329}
+.card,.tip,.ans,.warn{background:#fff;padding:14px 18px;margin:14px 0;border-left:5px solid var(--g)}
+.tip{background:var(--blue);border-left-color:#4d75a8}.ans{background:var(--green);border-left-color:#4c8a55}
+.warn{background:#fff6dd}.exam{background:var(--red);border-left:5px solid #b53d36;padding:14px 18px;margin:14px 0}
+table{width:100%;border-collapse:collapse;background:#fff;margin:14px 0}
+th,td{border:1px solid #bbb;padding:9px;vertical-align:top}th{background:#eee}
+.eq{font-family:Georgia,serif;font-size:1.08em}code{background:#eee;padding:2px 5px}
+.flow{font-weight:bold;text-align:center;padding:14px;background:#fff;border:1px solid #ddd}
+.small{font-size:.93em;color:#444}
+</style>
+</head>
+<body>
+<header>
+<h1>SECR1013 Digital Logic</h1>
+<div>Module 6 — Functions of Combinational Logic | Exam-Focused Study Guide</div>
+</header>
+<main>
+
+<h2>1. Module Overview</h2>
+<p>This module covers major functions of combinational logic:</p>
+<div class="card">
+<b>Basic Adders → Parallel Binary Adders → Comparators → Decoders → Encoders → Multiplexers → Demultiplexers → Code Converter → Parity Generators / Checkers</b>
+</div>
+<p>The module also introduces MSI devices including <b>74LS283, 74LS85, 74HC42, 74HC154, 74HC147 and 74LS151</b>.</p>
+
+<h2>2. Big Picture — What Does Each Circuit Do?</h2>
+<table>
+<tr><th>Function</th><th>Main job</th></tr>
+<tr><td>Adder</td><td>Add binary bits.</td></tr>
+<tr><td>Comparator</td><td>Compare binary values.</td></tr>
+<tr><td>Decoder</td><td>Detect a specific input code and activate the corresponding output.</td></tr>
+<tr><td>Encoder</td><td>Perform the opposite function of a decoder; encode an active input into a coded output.</td></tr>
+<tr><td>MUX</td><td>Select one of several inputs and route it to one output.</td></tr>
+<tr><td>DEMUX</td><td>Take one input and distribute it to one selected output.</td></tr>
+<tr><td>Code Converter</td><td>Convert one type of code into another.</td></tr>
+<tr><td>Parity</td><td>Determine whether the number of 1s or 0s is odd/even and support error detection.</td></tr>
+</table>
+
+<h2>3. Basic Binary Addition</h2>
+<table>
+<tr><th>Operation</th><th>Result</th></tr>
+<tr><td>0 + 0</td><td>0</td></tr>
+<tr><td>0 + 1</td><td>1</td></tr>
+<tr><td>1 + 0</td><td>1</td></tr>
+<tr><td>1 + 1</td><td>10 → Sum = 0, Carry = 1</td></tr>
+</table>
+
+<h2>4. Half Adder</h2>
+<p>A half adder accepts <b>two binary digits</b> as inputs and produces two outputs: <b>Sum</b> and <b>Carry</b>.</p>
+<div class="card">
+<span class="eq"><b>Σ = A ⊕ B</b></span><br>
+<span class="eq"><b>C<sub>out</sub> = AB</b></span>
+</div>
+
+<table>
+<tr><th>A</th><th>B</th><th>Σ</th><th>Cout</th></tr>
+<tr><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+<tr><td>0</td><td>1</td><td>1</td><td>0</td></tr>
+<tr><td>1</td><td>0</td><td>1</td><td>0</td></tr>
+<tr><td>1</td><td>1</td><td>0</td><td>1</td></tr>
+</table>
+
+<div class="tip"><b>Memory:</b> XOR calculates the Sum. AND detects when both inputs are 1 and produces Carry.</div>
+
+<h2>5. Full Adder</h2>
+<p>A full adder accepts <b>two input bits plus an input carry (Cin)</b>. It generates a Sum and an output Carry. The module states that it is suitable for multi-bit addition by cascading full adders.</p>
+
+<div class="card">
+<span class="eq"><b>Σ = (A ⊕ B) ⊕ C<sub>in</sub></b></span><br>
+<span class="eq"><b>C<sub>out</sub> = AB + AC<sub>in</sub> + BC<sub>in</sub></b></span>
+</div>
+
+<p>The module derives these equations through:</p>
+<div class="flow">Truth Table → K-Map → Simplified Equation → Circuit</div>
+
+<h3>Full Adder Truth Table</h3>
+<table>
+<tr><th>A</th><th>B</th><th>Cin</th><th>Σ</th><th>Cout</th></tr>
+<tr><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+<tr><td>0</td><td>0</td><td>1</td><td>1</td><td>0</td></tr>
+<tr><td>0</td><td>1</td><td>0</td><td>1</td><td>0</td></tr>
+<tr><td>0</td><td>1</td><td>1</td><td>0</td><td>1</td></tr>
+<tr><td>1</td><td>0</td><td>0</td><td>1</td><td>0</td></tr>
+<tr><td>1</td><td>0</td><td>1</td><td>0</td><td>1</td></tr>
+<tr><td>1</td><td>1</td><td>0</td><td>0</td><td>1</td></tr>
+<tr><td>1</td><td>1</td><td>1</td><td>1</td><td>1</td></tr>
+</table>
+
+<h3>Worked examples from the module</h3>
+<table>
+<tr><th>A</th><th>B</th><th>Cin</th><th>Result</th></tr>
+<tr><td>1</td><td>0</td><td>0</td><td>Σ = 1, Cout = 0</td></tr>
+<tr><td>1</td><td>1</td><td>0</td><td>Σ = 0, Cout = 1</td></tr>
+<tr><td>1</td><td>0</td><td>1</td><td>Σ = 0, Cout = 1</td></tr>
+</table>
+
+<h2>6. Half Adder vs Full Adder</h2>
+<table>
+<tr><th></th><th>Half Adder</th><th>Full Adder</th></tr>
+<tr><td>Inputs</td><td>A, B</td><td>A, B, Cin</td></tr>
+<tr><td>Outputs</td><td>Σ, Cout</td><td>Σ, Cout</td></tr>
+<tr><td>Input carry?</td><td>No</td><td>Yes</td></tr>
+<tr><td>Sum</td><td>A ⊕ B</td><td>(A ⊕ B) ⊕ Cin</td></tr>
+<tr><td>Use</td><td>Add two bits</td><td>Can be cascaded for multi-bit addition</td></tr>
+</table>
+<div class="tip">The slides also show that a full adder can be constructed using <b>two half adders</b>.</div>
+
+<h2>7. Adder / Subtractor Circuit</h2>
+<p>The module includes an adder/subtractor circuit for 2's-complement arithmetic. A control input <b>S</b> determines whether the B inputs are passed unchanged or complemented through XOR gates, while the initial carry is also controlled by S.</p>
+<div class="exam"><b>Revision focus:</b> Understand the role of the XOR gates, control input S, full adders and carry path in the diagram on page 15 of the slide deck.</div>
+
+<h2>8. Parallel Binary Adder</h2>
+<p>Two or more full adders connected together form a <b>parallel adder</b>. The carry from a lower-order stage becomes the carry input to the next stage.</p>
+
+<div class="card">
+Example in the module:<br>
+&nbsp;&nbsp;101<br>
++ 011<br>
+= <b>1000</b>
+</div>
+
+<p>The module also introduces the MSI chip <b>74LS283</b> as a <b>4-bit parallel adder</b>.</p>
+
+<h2>9. Ripple Carry Adder</h2>
+<p>In a ripple carry adder, the Cout of each full adder is connected to the Cin of the next higher-order stage.</p>
+<div class="card">
+LSB Full Adder → Carry → Next Full Adder → Carry → ... → MSB
+</div>
+<p>The carry accumulates from the lowest-order bit to the highest-order bit. The module emphasizes that the speed is limited by the time required for the carry to propagate through all stages.</p>
+
+<h2>10. Look-Ahead Carry Adder</h2>
+<p>The look-ahead carry adder speeds up addition by eliminating the ripple-carry delay. It anticipates the output carry based on the inputs using <b>carry generation</b> or <b>carry propagation</b>.</p>
+
+<table>
+<tr><th>Ripple Carry</th><th>Look-Ahead Carry</th></tr>
+<tr><td>Carry propagates stage by stage.</td><td>Anticipates carry.</td></tr>
+<tr><td>Speed limited by propagation delay.</td><td>Designed to speed up addition.</td></tr>
+</table>
+
+<div class="ans"><b>Module example:</b> 1010 + 0011 = <b>1101</b>.</div>
+
+<h2>11. Comparator</h2>
+<p>A comparator compares two n-bit binary values. The module uses three outputs:</p>
+<div class="card"><b>X &gt; Y</b><br><b>X = Y</b><br><b>X &lt; Y</b></div>
+
+<p>The slides use <b>XNOR</b> for equality comparison and <b>XOR</b> to check inequality of individual bits.</p>
+
+<h3>Single-bit Comparator</h3>
+<div class="card">
+<span class="eq">X &gt; Y → XȲ</span><br>
+<span class="eq">X = Y → X̄Ȳ + XY = X XNOR Y</span><br>
+<span class="eq">X &lt; Y → X̄Y</span>
+</div>
+
+<table>
+<tr><th>X</th><th>Y</th><th>X&gt;Y</th><th>X=Y</th><th>X&lt;Y</th></tr>
+<tr><td>0</td><td>0</td><td>0</td><td>1</td><td>0</td></tr>
+<tr><td>0</td><td>1</td><td>0</td><td>0</td><td>1</td></tr>
+<tr><td>1</td><td>0</td><td>1</td><td>0</td><td>0</td></tr>
+<tr><td>1</td><td>1</td><td>0</td><td>1</td><td>0</td></tr>
+</table>
+
+<h2>12. Multi-bit Comparator</h2>
+<p>For equality, compare corresponding bits and combine their equality results. The module introduces <b>74LS85</b> as a <b>4-bit comparator</b>.</p>
+<div class="tip"><b>Comparison strategy shown in the slides:</b> compare the higher-order bits first. If they are equal, continue to the next bits. Once one higher-order pair establishes greater/less, stop comparing lower bits.</div>
+<div class="ans"><b>Exercise 6.3:</b> A = 1011 and B = 1010 → <b>A &gt; B = 1, A = B = 0, A &lt; B = 0</b>.</div>
+
+<h2>13. Decoder — Core Function</h2>
+<p>A decoder detects the presence of a specified combination of input bits and indicates that code using a specified output level.</p>
+<div class="card"><b>n input lines → up to 2ⁿ output lines.</b></div>
+
+<p>Decoder types listed in the module:</p>
+<ul>
+<li>3-bit binary decoder: 3-line to 8-line</li>
+<li>4-bit binary decoder: 4-line to 16-line</li>
+<li>BCD-to-Decimal decoder</li>
+<li>BCD-to-7-segment decoder</li>
+</ul>
+
+<h2>14. Active-HIGH vs Active-LOW Decoder</h2>
+<table>
+<tr><th>Required output</th><th>Gate indicated by module</th><th>Selected state</th></tr>
+<tr><td>Active HIGH</td><td>AND</td><td>Selected output = 1</td></tr>
+<tr><td>Active LOW</td><td>NAND</td><td>Selected output = 0</td></tr>
+</table>
+
+<div class="tip"><b>Example:</b> For a 3-bit decoder with input 101, the selected output is <b>Q5</b>. In active-HIGH form Q5 = 1; in active-LOW form Q5 = 0.</div>
+
+<h2>15. 3-Bit Decoder</h2>
+<p>A 3-bit decoder has 8 unique input combinations and 8 corresponding outputs. Only one output is active for each unique binary input pattern.</p>
+<table>
+<tr><th>ABC</th><th>Active output</th></tr>
+<tr><td>000</td><td>Q0</td></tr><tr><td>001</td><td>Q1</td></tr>
+<tr><td>010</td><td>Q2</td></tr><tr><td>011</td><td>Q3</td></tr>
+<tr><td>100</td><td>Q4</td></tr><tr><td>101</td><td>Q5</td></tr>
+<tr><td>110</td><td>Q6</td></tr><tr><td>111</td><td>Q7</td></tr>
+</table>
+
+<h2>16. 4-Bit Decoder — 74HC154</h2>
+<p>The module identifies <b>74HC154</b> as a <b>1-of-16 decoder</b> with four active-HIGH inputs and sixteen active-LOW outputs. It also has two active-LOW enable inputs.</p>
+<div class="warn"><b>Enable matters:</b> The device must be enabled before the selected output behaves as expected.</div>
+
+<h2>17. Address Decoder</h2>
+<p>The module shows a decoder being used to decode a computer address. Each I/O device has an address; the decoder recognizes the address pattern and selects the corresponding I/O port when the request condition is satisfied.</p>
+<div class="exam"><b>Study the diagram on pages 45–46:</b> address lines feed a decoder, and the decoded output selects one peripheral/I/O port.</div>
+
+<h2>18. Binary Coded Decimal (BCD)</h2>
+<p>BCD expresses each decimal digit using a binary code. The module states that BCD has only ten valid code groups:</p>
+<table>
+<tr><th>Decimal</th><th>BCD</th><th>Decimal</th><th>BCD</th></tr>
+<tr><td>0</td><td>0000</td><td>5</td><td>0101</td></tr>
+<tr><td>1</td><td>0001</td><td>6</td><td>0110</td></tr>
+<tr><td>2</td><td>0010</td><td>7</td><td>0111</td></tr>
+<tr><td>3</td><td>0011</td><td>8</td><td>1000</td></tr>
+<tr><td>4</td><td>0100</td><td>9</td><td>1001</td></tr>
+</table>
+<div class="card"><b>Module example:</b> decimal 43 → BCD <b>0100 0011</b>.</div>
+
+<h2>19. BCD-to-Decimal Decoder</h2>
+<p>The module introduces <b>74HC42</b> as an active-LOW MSI device for BCD-to-decimal decoding. It is frequently called a <b>1-of-10 decoder</b>.</p>
+
+<h2>20. BCD / Binary to 7-Segment Decoder</h2>
+<p>The decoder receives a BCD code and lights the appropriate LED segments to display decimal digits 0–9.</p>
+<div class="card">
+Seven segments: <b>a, b, c, d, e, f, g</b>
+</div>
+<p>The slides distinguish:</p>
+<table>
+<tr><th>Display type</th><th>Segment condition stated in module</th></tr>
+<tr><td>Common anode</td><td>0 at input lights the segment → active LOW output.</td></tr>
+<tr><td>Common cathode</td><td>1 at input lights the segment → active HIGH output.</td></tr>
+</table>
+
+<h2>21. Encoder</h2>
+<p>An encoder performs the opposite function of a decoder. A binary encoder encodes information from <b>2ⁿ inputs into an n-bit coded output</b>, reducing the number of bits needed to represent the information.</p>
+<p>The module lists:</p>
+<ul><li>Decimal-to-BCD Encoder</li><li>Priority Encoder</li></ul>
+
+<h2>22. Decimal-to-BCD Encoder</h2>
+<p>The example uses <b>10 decimal inputs</b> and <b>4 BCD outputs</b>. A HIGH decimal input is converted to the corresponding four-bit BCD code.</p>
+<div class="tip">The module notes that a separate 0-digit input is not required in the basic logic diagram because the BCD outputs are all LOW when there are no HIGH inputs.</div>
+
+<h2>23. Limitation of the Basic Encoder</h2>
+<p>Exercise 6.6 asks what happens when inputs 2 and 9 are HIGH simultaneously and asks for the restriction on the encoder logic. This leads directly into the next topic: the <b>priority encoder</b>.</p>
+
+<h2>24. Priority Encoder — 74HC147</h2>
+<p>The module states that <b>74HC147</b> performs the encoding function with an additional feature: it produces the BCD output corresponding to the <b>higher decimal-value input</b> and ignores the lower value.</p>
+<div class="card"><b>Example from the module:</b> if inputs 9 and 5 are LOW simultaneously, only 9 is recognized because it has higher priority.</div>
+
+<h2>25. Multiplexer (MUX)</h2>
+<p>A multiplexer allows digital information from several sources to be routed onto a <b>single line</b>. The module calls it a <b>Data Selector</b>.</p>
+<div class="card"><b>Many inputs → ONE selected input → ONE output</b></div>
+
+<p>The select lines determine which input is connected to the output.</p>
+<div class="tip"><b>Module relationship:</b> 2¹ select combinations → 2 data inputs; 2² select combinations → 4 data inputs.</div>
+
+<h2>26. 1-of-2 Multiplexer</h2>
+<table>
+<tr><th>S0</th><th>Output</th></tr>
+<tr><td>0</td><td>Y = D0</td></tr>
+<tr><td>1</td><td>Y = D1</td></tr>
+</table>
+
+<div class="card">
+<span class="eq"><b>Y = S̄0D0 + S0D1</b></span>
+</div>
+
+<h2>27. 1-of-4 Multiplexer</h2>
+<p>A 1-of-4 MUX routes one of four inputs to one output and therefore requires <b>2 selector bits</b>.</p>
+<table>
+<tr><th>S1</th><th>S0</th><th>Y</th></tr>
+<tr><td>0</td><td>0</td><td>D0</td></tr>
+<tr><td>0</td><td>1</td><td>D1</td></tr>
+<tr><td>1</td><td>0</td><td>D2</td></tr>
+<tr><td>1</td><td>1</td><td>D3</td></tr>
+</table>
+<div class="tip"><b>Timing-diagram rule from Exercise 6.7:</b> the output follows the value of the input selected by S1S0. S1 is the MSB and S0 is the LSB.</div>
+
+<h2>28. 74LS151 Multiplexer</h2>
+<p>The module introduces <b>74LS151</b> as a <b>1-of-8 MUX</b>. In addition to data inputs and selector pins, the IC has an enable pin.</p>
+<div class="warn"><b>Module note:</b> the enable input is active LOW; logic 0 is applied to enable operation.</div>
+
+<h2>29. Demultiplexer (DEMUX)</h2>
+<p>A DEMUX performs essentially the reverse multiplexing function. It takes digital information from <b>one line</b> and distributes it to a selected output line. The module calls it a <b>Data Distributor</b>.</p>
+<div class="card"><b>ONE input → selector chooses → ONE of many outputs</b></div>
+
+<h2>30. MUX vs DEMUX</h2>
+<table>
+<tr><th>MUX</th><th>DEMUX</th></tr>
+<tr><td>Data Selector</td><td>Data Distributor</td></tr>
+<tr><td>Many inputs → one output</td><td>One input → many possible outputs</td></tr>
+<tr><td>Selects source</td><td>Selects destination</td></tr>
+</table>
+
+<h2>31. 1-to-4 DEMUX</h2>
+<p>The module shows that the data input goes to all AND gates while the two select lines enable only one gate at a time.</p>
+<div class="card">
+D0 = S̄1S̄0·DataIn<br>
+D1 = S̄1S0·DataIn<br>
+D2 = S1S̄0·DataIn<br>
+D3 = S1S0·DataIn
+</div>
+
+<h2>32. Decoder as DEMUX</h2>
+<p>The module states that a decoder can also be used as a DEMUX. It specifically demonstrates <b>74HC154</b> as a 4-bit decoder used as a DEMUX, depending on how its enable/data input is connected.</p>
+
+<h2>33. Code Converter</h2>
+<p>The purpose of a code converter is to convert from one type of code to another.</p>
+<div class="card">
+Examples given in the module:<br>
+• 3-to-8 decoder: binary number → one-hot encoding<br>
+• 8-to-3 encoder: performs the opposite conversion<br>
+• BCD-to-7-segment decoder: another common code-converter example
+</div>
+
+<h2>34. Parity Generators / Checkers</h2>
+<p>The module explains that errors may occur while digital codes are transferred: a 1 may change to 0 or a 0 may change to 1. Undetected errors can cause problems in a digital system.</p>
+<p>Basic parity logic is used to determine whether the number of 1s or 0s is odd or even.</p>
+
+<div class="card">
+<b>Modulo-2 addition → XOR</b><br>
+Even number of relevant 1s → XOR result 0<br>
+Odd number of relevant 1s → XOR result 1
+</div>
+
+<h2>35. Parity Checker</h2>
+<p>The final slide states that when the circuit is used as an <b>odd parity checker</b>, the number of input bits is always even; when parity error occurs, the Σ-even output goes LOW and the Σ-odd output goes HIGH.</p>
+
+<h2>36. Even Parity Generator</h2>
+<p>For the even parity generator described in the module, the parity bit is taken at the Σ-odd output:</p>
+<div class="card">
+If input contains an <b>even</b> number of 1s → parity bit = <b>0</b><br>
+If input contains an <b>odd</b> number of 1s → parity bit = <b>1</b>
+</div>
+
+<h2>37. IC Cheat Sheet</h2>
+<table>
+<tr><th>IC</th><th>Function in Module 6</th></tr>
+<tr><td><b>74LS283</b></td><td>4-bit Parallel Adder</td></tr>
+<tr><td><b>74LS85</b></td><td>4-bit Comparator</td></tr>
+<tr><td><b>74HC42</b></td><td>BCD-to-Decimal Decoder / 1-of-10</td></tr>
+<tr><td><b>74HC154</b></td><td>4-to-16 / 1-of-16 Decoder; also demonstrated as DEMUX</td></tr>
+<tr><td><b>74HC147</b></td><td>Priority Encoder</td></tr>
+<tr><td><b>74LS151</b></td><td>1-of-8 Multiplexer</td></tr>
+</table>
+
+<h2>38. Exercise Map — What to Practise</h2>
+<table>
+<tr><th>Exercise</th><th>Skill</th></tr>
+<tr><td>6.1</td><td>Half-adder Sum and Cout</td></tr>
+<tr><td>6.2</td><td>Full-adder calculation</td></tr>
+<tr><td>6.3</td><td>Comparator outputs</td></tr>
+<tr><td>6.4</td><td>Design code detector with active-LOW output</td></tr>
+<tr><td>6.5</td><td>Determine binary code from decoder logic</td></tr>
+<tr><td>6.6</td><td>Encoder behaviour when more than one input is active</td></tr>
+<tr><td>6.7</td><td>MUX timing diagram</td></tr>
+<tr><td>6.8</td><td>Determine selected MUX output</td></tr>
+<tr><td>6.9</td><td>DEMUX timing diagram</td></tr>
+</table>
+
+<h2>39. Common Mistakes</h2>
+<ul>
+<li>Confusing Half Adder with Full Adder and forgetting Cin.</li>
+<li>Writing Cout of a half adder as XOR instead of AND.</li>
+<li>Ignoring carry propagation in a parallel/ripple adder.</li>
+<li>Comparing lower comparator bits before higher-order bits when deciding magnitude.</li>
+<li>Confusing encoder and decoder directions.</li>
+<li>Forgetting whether decoder outputs are active HIGH or active LOW.</li>
+<li>Forgetting that a 3-bit decoder has 2³ = 8 possible outputs.</li>
+<li>Confusing MUX with DEMUX.</li>
+<li>Reading selector bits in the wrong order.</li>
+<li>Ignoring enable pins on MSI devices.</li>
+<li>Assuming a basic encoder can correctly resolve multiple simultaneously active inputs.</li>
+<li>Confusing ordinary binary representation with BCD digit-by-digit representation.</li>
+</ul>
+
+<h2>40. Mini Quiz</h2>
+<p><b>Q1.</b> What are the Half Adder equations?</p>
+<div class="ans">Σ = A ⊕ B; Cout = AB.</div>
+
+<p><b>Q2.</b> What additional input does a Full Adder have?</p>
+<div class="ans">Cin.</div>
+
+<p><b>Q3.</b> What limits the speed of a ripple carry adder?</p>
+<div class="ans">The time required for carry to propagate through the stages.</div>
+
+<p><b>Q4.</b> Which gate is associated with equality comparison?</p>
+<div class="ans">XNOR.</div>
+
+<p><b>Q5.</b> How many outputs can a 3-bit decoder have?</p>
+<div class="ans">2³ = 8.</div>
+
+<p><b>Q6.</b> Input 101 is applied to the module's 3-bit decoder. Which output is selected?</p>
+<div class="ans">Q5.</div>
+
+<p><b>Q7.</b> What does an encoder do?</p>
+<div class="ans">Encodes an active input into an n-bit coded output; the module describes it as the opposite function of a decoder.</div>
+
+<p><b>Q8.</b> What is the difference between a normal encoder and a priority encoder?</p>
+<div class="ans">The priority encoder resolves multiple active inputs by giving priority to the higher-value input, as shown for 74HC147.</div>
+
+<p><b>Q9.</b> What is another name for a MUX?</p>
+<div class="ans">Data Selector.</div>
+
+<p><b>Q10.</b> What is another name for a DEMUX?</p>
+<div class="ans">Data Distributor.</div>
+
+<p><b>Q11.</b> For a 1-of-4 MUX, S1S0 = 10. Which input reaches Y?</p>
+<div class="ans">D2.</div>
+
+<p><b>Q12.</b> What is decimal 43 in BCD according to the module example?</p>
+<div class="ans">0100 0011.</div>
+
+<h2>41. 80/20 Final Exam Cheat Sheet</h2>
+<div class="card">
+<b>HALF ADDER</b><br>
+Σ = A ⊕ B<br>
+Cout = AB<br><br>
+
+<b>FULL ADDER</b><br>
+Σ = (A ⊕ B) ⊕ Cin<br>
+Cout = AB + ACin + BCin<br><br>
+
+<b>PARALLEL ADDER</b><br>
+Multiple full adders connected together.<br>
+Ripple Carry → carry propagates stage by stage.<br>
+Look-Ahead Carry → designed to eliminate ripple-carry delay.<br><br>
+
+<b>COMPARATOR</b><br>
+Outputs: A&gt;B, A=B, A&lt;B.<br>
+XNOR → equality; XOR → inequality.<br>
+Compare higher-order bits first for magnitude.<br><br>
+
+<b>DECODER</b><br>
+n inputs → up to 2ⁿ outputs.<br>
+Active HIGH → AND.<br>
+Active LOW → NAND.<br>
+101 → Q5 in a 3-bit decoder.<br><br>
+
+<b>ENCODER</b><br>
+2ⁿ inputs → n-bit code.<br>
+Priority encoder → higher-value active input wins.<br><br>
+
+<b>MUX</b><br>
+Data Selector.<br>
+Many inputs → one output.<br>
+1-of-2: Y = S̄0D0 + S0D1.<br><br>
+
+<b>DEMUX</b><br>
+Data Distributor.<br>
+One input → selected one of many outputs.<br><br>
+
+<b>BCD</b><br>
+Each decimal digit encoded separately using 4 bits.<br>
+43 → 0100 0011.<br><br>
+
+<b>PARITY</b><br>
+Modulo-2 operation → XOR.<br>
+Even number of 1s → XOR result 0.<br>
+Odd number of 1s → XOR result 1.
+</div>
+
+<h2>42. Fast Memory Map</h2>
+<div class="flow">
+ADD → Calculate<br>↓<br>
+COMPARE → Decide greater/equal/less<br>↓<br>
+DECODE → Code to selected output<br>↓<br>
+ENCODE → Selected input to code<br>↓<br>
+MUX → Many-to-One<br>↓<br>
+DEMUX → One-to-Many<br>↓<br>
+CONVERT → Code-to-Code<br>↓<br>
+PARITY → Detect bit-error condition
+</div>
+
+<h2>43. Recommended Revision Sequence</h2>
+<div class="tip">
+<b>Round 1:</b> Memorise Half Adder and Full Adder formulas.<br>
+<b>Round 2:</b> Understand carry flow in Ripple Carry vs Look-Ahead Carry.<br>
+<b>Round 3:</b> Practise Comparator questions from MSB downward.<br>
+<b>Round 4:</b> Master Decoder vs Encoder and active HIGH/LOW.<br>
+<b>Round 5:</b> Memorise MUX = selector and DEMUX = distributor.<br>
+<b>Round 6:</b> Practise selector tables and timing diagrams.<br>
+<b>Round 7:</b> Review BCD, 7-segment, code converter and parity.<br>
+<b>Round 8:</b> Attempt Exercises 6.1–6.9 without referring to the slides.
+</div>
+
+</main></body></html>

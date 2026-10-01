@@ -1,0 +1,37 @@
+<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>SECR1013 Module 3 Logic Gates</title>
+<style>body{font-family:Arial,sans-serif;line-height:1.58;max-width:1080px;margin:auto;padding:28px;color:#222}h1,h2{color:#7b1734}h1{border-bottom:5px solid #c99a2e;padding-bottom:10px}.card{background:#f7f7f7;border-left:5px solid #c99a2e;padding:14px 18px;margin:14px 0}.ans{background:#edf7ee;border-left:4px solid #4c8a55;padding:10px 14px;margin:8px 0}.warn{background:#fff6dd;border-left:5px solid #c99a2e;padding:12px 15px}table{border-collapse:collapse;width:100%;margin:14px 0}th,td{border:1px solid #bbb;padding:9px;text-align:center}th{background:#eee}code{background:#eee;padding:2px 5px}</style></head><body>
+<h1>SECR1013 Digital Logic — Module 3: Logic Gates</h1>
+<h2>1. Overview</h2><p>The module covers NOT, AND, OR, NAND, NOR, XOR and XNOR gates. The opening diagram groups AND, NOT and OR as basic gates and identifies NAND and NOR as universal gates.</p>
+<h2>2. One Table to Remember</h2>
+<table><tr><th>Gate</th><th>Expression</th><th>When output = 1</th></tr>
+<tr><td>NOT</td><td>X = Ā</td><td>A = 0</td></tr><tr><td>AND</td><td>X = A·B</td><td>All inputs are 1</td></tr><tr><td>OR</td><td>X = A+B</td><td>Any input is 1</td></tr><tr><td>NAND</td><td>X = overline(A·B)</td><td>Not all inputs are 1</td></tr><tr><td>NOR</td><td>X = overline(A+B)</td><td>All inputs are 0</td></tr><tr><td>XOR</td><td>X = ĀB+A B̄</td><td>Inputs are different</td></tr><tr><td>XNOR</td><td>X = AB+ĀB̄</td><td>Inputs are the same</td></tr></table>
+<div class="card"><strong>Suggested memory aid:</strong> AND = <strong>ALL</strong>; OR = <strong>ANY</strong>; XOR = <strong>DIFFERENT</strong>; XNOR = <strong>SAME</strong>; NAND/NOR = invert AND/OR.</div>
+<h2>3. NOT Gate (Inverter)</h2><p>The NOT gate performs inversion/complementation: LOW becomes HIGH and HIGH becomes LOW. The module represents NOT using an overbar.</p>
+<table><tr><th>A</th><th>X=Ā</th></tr><tr><td>0</td><td>1</td></tr><tr><td>1</td><td>0</td></tr></table>
+<h2>4. AND Gate</h2><p>The AND gate performs “logical multiplication”. Its output is HIGH only if <strong>all</strong> inputs are HIGH.</p>
+<table><tr><th>A</th><th>B</th><th>A·B</th></tr><tr><td>0</td><td>0</td><td>0</td></tr><tr><td>0</td><td>1</td><td>0</td></tr><tr><td>1</td><td>0</td><td>0</td></tr><tr><td>1</td><td>1</td><td>1</td></tr></table>
+<p>For an n-input gate, the number of possible input combinations is <code>2ⁿ</code>. Therefore a 3-input AND has 8 combinations and a 4-input AND has 16.</p>
+<h2>5. OR Gate</h2><p>The OR gate performs “logical addition”. If any input is HIGH, the output is HIGH; only all-LOW inputs produce LOW.</p>
+<table><tr><th>A</th><th>B</th><th>A+B</th></tr><tr><td>0</td><td>0</td><td>0</td></tr><tr><td>0</td><td>1</td><td>1</td></tr><tr><td>1</td><td>0</td><td>1</td></tr><tr><td>1</td><td>1</td><td>1</td></tr></table>
+<h2>6. NAND — Universal Gate</h2><p>NAND combines AND with an inverter. The module states that combinations of NAND gates can implement AND, OR and inverter operations.</p>
+<table><tr><th>A</th><th>B</th><th>NAND</th></tr><tr><td>0</td><td>0</td><td>1</td></tr><tr><td>0</td><td>1</td><td>1</td></tr><tr><td>1</td><td>0</td><td>1</td></tr><tr><td>1</td><td>1</td><td>0</td></tr></table>
+<h2>7. NOR — Universal Gate</h2><p>NOR combines OR with an inverter. Combinations of NOR gates can also implement AND, OR and inverter operations.</p>
+<table><tr><th>A</th><th>B</th><th>NOR</th></tr><tr><td>0</td><td>0</td><td>1</td></tr><tr><td>0</td><td>1</td><td>0</td></tr><tr><td>1</td><td>0</td><td>0</td></tr><tr><td>1</td><td>1</td><td>0</td></tr></table>
+<h2>8. XOR Gate</h2><p>The module describes XOR as a two-input gate and shows its implementation using 2 AND gates, 1 OR gate and 2 NOT gates. Its output is HIGH when the two inputs are at opposite logic levels.</p>
+<table><tr><th>A</th><th>B</th><th>XOR</th></tr><tr><td>0</td><td>0</td><td>0</td></tr><tr><td>0</td><td>1</td><td>1</td></tr><tr><td>1</td><td>0</td><td>1</td></tr><tr><td>1</td><td>1</td><td>0</td></tr></table>
+<h2>9. XNOR Gate</h2><p>XNOR is the opposite of XOR: HIGH for equal input logic levels and LOW for opposite input logic levels. The slides also illustrate two XNOR implementations.</p>
+<table><tr><th>A</th><th>B</th><th>XNOR</th></tr><tr><td>0</td><td>0</td><td>1</td></tr><tr><td>0</td><td>1</td><td>0</td></tr><tr><td>1</td><td>0</td><td>0</td></tr><tr><td>1</td><td>1</td><td>1</td></tr></table>
+<h2>10. Timing Diagram Strategy</h2><ol><li>Split the waveform at every input transition.</li><li>For each interval, write A, B (and C if present) as 0 or 1.</li><li>Apply the gate rule independently to each interval.</li><li>Draw X HIGH or LOW for the whole interval.</li></ol>
+<div class="warn"><strong>Fast check:</strong> AND looks for all 1s; NAND is its inverse. OR looks for at least one 1; NOR is its inverse. XOR checks different; XNOR checks same.</div>
+<h2>11. Source Exercises to Prioritize</h2><p>The module includes: a 3-input AND truth table and 4-input combination count; timing waveforms for AND, OR, 3-input NAND and 3-input NOR; XOR/XNOR timing exercises; and a final combined XOR/XNOR waveform exercise.</p>
+<h2>12. Practice + Answers</h2>
+<p><strong>Q1.</strong> Input A to NOT is LOW. Output?</p><div class="ans"><strong>Answer:</strong> HIGH (1).</div>
+<p><strong>Q2.</strong> All inputs of an AND gate are LOW. Output?</p><div class="ans"><strong>Answer:</strong> LOW (0).</div>
+<p><strong>Q3.</strong> How many input combinations exist for a 4-input gate?</p><div class="ans"><strong>Answer:</strong> 2⁴ = <strong>16</strong>.</div>
+<p><strong>Q4.</strong> A=1, B=0. Find AND, OR, NAND, NOR, XOR, XNOR.</p><div class="ans"><strong>Answer:</strong> AND=0, OR=1, NAND=1, NOR=0, XOR=1, XNOR=0.</div>
+<p><strong>Q5.</strong> For a 3-input NAND, A=B=C=1. Output?</p><div class="ans"><strong>Answer:</strong> AND would be 1, then invert → <strong>0</strong>.</div>
+<p><strong>Q6.</strong> For a 3-input NOR, A=B=C=0. Output?</p><div class="ans"><strong>Answer:</strong> OR would be 0, then invert → <strong>1</strong>.</div>
+<p><strong>Q7.</strong> What distinguishes XOR and XNOR?</p><div class="ans"><strong>Answer:</strong> XOR outputs 1 when the two inputs are different; XNOR outputs 1 when they are the same.</div>
+<h2>13. Common Mistakes</h2><ul><li>Reading Boolean “+” as normal arithmetic addition rather than OR.</li><li>Forgetting the inversion bubble on NAND/NOR.</li><li>Thinking OR requires both inputs HIGH; it requires any HIGH input.</li><li>Confusing XOR with OR when A=B=1: OR=1 but XOR=0.</li><li>Confusing XNOR with XOR: XNOR detects equal inputs.</li><li>Trying to solve a timing diagram visually without dividing it into intervals.</li></ul>
+<h2>14. Final Recap</h2><div class="card"><strong>NOT:</strong> opposite<br><strong>AND:</strong> all 1<br><strong>OR:</strong> any 1<br><strong>NAND:</strong> NOT-AND, universal<br><strong>NOR:</strong> NOT-OR, universal<br><strong>XOR:</strong> different<br><strong>XNOR:</strong> same</div>
+</body></html>
