@@ -1,0 +1,180 @@
+<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SECR1013 Module 5 — Combinational Logic Circuits</title>
+<style>
+:root{--m:#781633;--g:#c99a2e;--bg:#faf8f4;--ink:#202124;--green:#edf7ee;--blue:#eef5ff}
+*{box-sizing:border-box}body{margin:0;font-family:Arial,sans-serif;background:var(--bg);color:var(--ink);line-height:1.6}
+header{background:var(--m);color:#fff;padding:34px;border-bottom:8px solid var(--g)}main{max-width:1120px;margin:auto;padding:30px}
+h1{margin:0}h2{color:var(--m);border-bottom:2px solid #ddd;padding-bottom:7px;margin-top:34px}h3{color:#5c1329}
+.card,.tip,.ans,.warn{background:#fff;padding:14px 18px;margin:14px 0;border-left:5px solid var(--g)}
+.tip{background:var(--blue);border-left-color:#4d75a8}.ans{background:var(--green);border-left-color:#4c8a55}.warn{background:#fff6dd}
+table{width:100%;border-collapse:collapse;background:#fff;margin:14px 0}th,td{border:1px solid #bbb;padding:9px}th{background:#eee}
+.eq{font-family:Georgia,serif;font-size:1.08em}code{background:#eee;padding:2px 5px}
+</style></head><body><header><h1>SECR1013 Digital Logic</h1><div>Module 5 — Combinational Logic Circuits | Exam-Focused Study Guide</div></header><main>
+
+<h2>1. Learning Objectives</h2>
+<p>According to the module, you should be able to:</p>
+<ol><li>Introduce AND-OR and AND-OR-Invert logic.</li><li>Illustrate conversion between different representations of a digital circuit.</li><li>Introduce the universality of a gate.</li><li>Introduce a dual symbol in a digital circuit.</li><li>Explain the design of a combinational circuit.</li></ol>
+
+<h2>2. Module Roadmap</h2>
+<div class="card"><b>Basic combinational logic</b> → AND-OR → AND-OR-Invert → universal NAND/NOR → dual symbols → SOP to NAND-only / POS to NOR-only → design procedure → single/multiple-output problems → direct Boolean-expression design.</div>
+
+<h2>3. Basic Combinational Logic</h2>
+<p>The module lists four basic forms: <b>AND-OR, AND-OR-Invert, XOR and XNOR</b>. It also explains the design idea of choosing whether the final circuit output should be active HIGH (1) or active LOW (0).</p>
+<div class="tip"><b>Core module idea:</b> Active-HIGH output can be implemented naturally with SOP / AND-OR logic. For an active-LOW output, the output can be inverted, producing AND-OR-Invert logic.</div>
+
+<h2>4. AND-OR Logic</h2>
+<p>An AND-OR circuit consists of any number of AND gates feeding an OR gate. The slide gives SOP such as <span class="eq">AB + CD + EF</span> as an example.</p>
+<table><tr><th>AND-stage outputs</th><th>Final OR output</th></tr><tr><td>Any AND output is HIGH</td><td>HIGH</td></tr><tr><td>All AND outputs are LOW</td><td>LOW</td></tr></table>
+<div class="card"><b>Pattern:</b> Product terms → AND gates → final OR gate.<br><b>Example:</b> X = AB + CD + EF.</div>
+
+<h2>5. From Truth Table to AND-OR</h2>
+<p>The worked example in the module follows this flow:</p>
+<ol><li>Use the truth table.</li><li>Derive the Boolean expression / map the 1s to a K-Map.</li><li>Simplify using K-Map.</li><li>Implement the simplified expression using AND-OR logic.</li></ol>
+<div class="warn"><b>Exam link with Module 4b:</b> AND-OR is closely associated with an SOP result after K-Map simplification.</div>
+
+<h2>6. AND-OR-Invert Logic</h2>
+<p>The module describes AND-OR-Invert as the <b>complemented AND-OR circuit</b>. The result is the complement of the AND-OR output. DeMorgan's theorem connects this structure to POS.</p>
+<div class="card"><b>Visual pattern:</b> AND stage → OR stage → output inverter.</div>
+<p>Exercise 5.1 and the self-test ask you to take a truth table and implement an <b>active-low output</b> using AND-OR-Invert logic, with the K-Map expression written as POS.</p>
+
+<h2>7. NAND and NOR Are Universal Gates</h2>
+<p>The module defines a universal gate as one that can be converted to perform the functions of basic gates, allowing it to implement logic circuits. The two universal gates covered are <b>NAND</b> and <b>NOR</b>.</p>
+<div class="tip"><b>Why use one gate type?</b> The slides mention stocking one gate type, possible cost reduction when buying in volume, and reusing spare gates in an IC.</div>
+<table><tr><th>Target function</th><th>NAND gates required</th><th>NOR gates required</th></tr>
+<tr><td>NOT</td><td>1</td><td>1</td></tr><tr><td>AND</td><td>2</td><td>3</td></tr><tr><td>OR</td><td>3</td><td>2</td></tr><tr><td>NAND</td><td>—</td><td>4</td></tr><tr><td>NOR</td><td>4</td><td>—</td></tr></table>
+
+<h2>8. NAND as a Universal Logic Element</h2>
+<p>The slides demonstrate NAND configurations that act as NOT, AND, OR and NOR.</p>
+<div class="card"><b>NAND → NOT:</b> connect the NAND inputs together.<br><b>NAND → AND:</b> NAND followed by NAND-as-inverter.<br><b>NAND → OR:</b> use the NAND dual/negative-OR relationship shown in the module.</div>
+<p>Exercise 5.2 asks you to implement individual expressions using NAND gates. Exercise 5.3 applies NAND implementation to <span class="eq">X = AB + CD</span>.</p>
+
+<h2>9. NOR as a Universal Logic Element</h2>
+<p>The module similarly demonstrates NOR configurations for NOT, OR, AND and NAND functions.</p>
+<div class="card"><b>NOR → NOT:</b> connect the NOR inputs together.<br><b>NOR → OR:</b> NOR followed by NOR-as-inverter.<br><b>NOR → AND:</b> use the NOR dual/negative-AND relationship shown in the slides.</div>
+<p>Exercise 5.4 asks for NOR implementations of expressions including OR and AND functions.</p>
+
+<h2>10. Dual Symbols</h2>
+<p>The module introduces alternate symbols:</p>
+<table><tr><th>Gate</th><th>Alternate / dual interpretation</th></tr><tr><td>NAND</td><td>Negative OR</td></tr><tr><td>NOR</td><td>Negative AND</td></tr></table>
+<p>The slide's conversion procedure is based on <b>bubbles</b>: put bubbles at the required input/output, change the gate symbol, and use bubble cancellation where two connected bubbles meet.</p>
+<div class="warn"><b>Important:</b> A bubble represents inversion. Two bubbles at a connection can cancel. Do not add or remove a bubble without accounting for its logical effect.</div>
+
+<h2>11. SOP Circuit → NAND Only</h2>
+<p>The module gives this three-step procedure:</p>
+<ol><li>Put bubbles at the inputs of the right-most OR gate.</li><li>Compensate by adding bubbles at the outputs of the preceding AND gates.</li><li>Replace the negative-OR symbol with the NAND symbol.</li></ol>
+<div class="card"><b>Fast exam rule:</b> SOP naturally maps to a <b>NAND–NAND</b> implementation.</div>
+
+<h2>12. POS Circuit → NOR Only</h2>
+<p>The corresponding slide shows:</p>
+<ol><li>Put bubbles at the inputs of the right-most AND gate.</li><li>Compensate by adding bubbles at the outputs of the preceding OR gates.</li><li>Replace the negative-AND symbol with the NOR symbol.</li></ol>
+<div class="card"><b>Fast exam rule:</b> POS naturally maps to a <b>NOR–NOR</b> implementation.</div>
+
+<h2>13. Exercises 5.5–5.9</h2>
+<table><tr><th>Exercise</th><th>Focus</th></tr>
+<tr><td>5.5</td><td>Convert SOP/POS logic circuits to NAND-only or NOR-only.</td></tr>
+<tr><td>5.6</td><td>Redraw a NAND-only circuit using appropriate dual symbols at an even level.</td></tr>
+<tr><td>5.7</td><td>Redraw a NOR-only circuit using appropriate dual symbols at an even level.</td></tr>
+<tr><td>5.8</td><td>Implement a given expression using NAND logic and produce the answer using dual symbols.</td></tr>
+<tr><td>5.9</td><td>Implement a given expression using NOR logic and produce the answer using dual symbols.</td></tr></table>
+
+<h2>14. Odd-Level / Even-Level Dual-Symbol Technique</h2>
+<p>The slides demonstrate dual-symbol replacement at selected gate levels. The main principle is to preserve the original logic by ensuring bubbles cancel correctly between connected stages.</p>
+<div class="warn"><b>Slide warning worth memorising:</b> <span class="eq">DE ≠ D + E</span>. A bar/bubble changes the expression according to DeMorgan's theorem; do not simply replace multiplication with addition without the required complements.</div>
+
+<h2>15. Six Steps for Designing a Combinational Circuit</h2>
+<table><tr><th>Step</th><th>Action from the module</th></tr>
+<tr><td>1</td><td>Understand the problem to be solved.</td></tr>
+<tr><td>2</td><td>Convert the problem statement to a Boolean expression or truth table, whichever is more natural.</td></tr>
+<tr><td>3</td><td>Simplify the output using Boolean algebra, K-Map or another technique.</td></tr>
+<tr><td>4</td><td>Draw the circuit from the simplified output.</td></tr>
+<tr><td>5</td><td>Convert the simplified circuit to universal gates only: SOP → NAND only; POS → NOR only.</td></tr>
+<tr><td>6</td><td>Redraw the final circuit using dual symbols.</td></tr></table>
+
+<h2>16. Step 1 Is the Most Critical</h2>
+<p>The module explicitly calls Step 1 the most critical stage. Determine:</p>
+<ol><li>How many inputs exist and give each a variable name.</li><li>How many outputs exist and give each a variable name. If there is more than one output, treat each output separately first and finally combine the circuits.</li><li>The relationship between outputs and inputs.</li></ol>
+
+<h2>17. Worked Example — Three Chemical Tanks</h2>
+<p>Three tanks A, B and C each have a level sensor. A sensor produces HIGH when the chemical level falls below a specified point. The circuit must indicate when the level in <b>any two tanks</b> falls below the specified point.</p>
+<table><tr><th>A</th><th>B</th><th>C</th><th>X</th></tr>
+<tr><td>0</td><td>0</td><td>0</td><td>0</td></tr><tr><td>0</td><td>0</td><td>1</td><td>0</td></tr><tr><td>0</td><td>1</td><td>0</td><td>0</td></tr><tr><td>0</td><td>1</td><td>1</td><td>1</td></tr><tr><td>1</td><td>0</td><td>0</td><td>0</td></tr><tr><td>1</td><td>0</td><td>1</td><td>1</td></tr><tr><td>1</td><td>1</td><td>0</td><td>1</td></tr><tr><td>1</td><td>1</td><td>1</td><td>1</td></tr></table>
+<div class="ans"><b>Simplified result shown by the module:</b><br><span class="eq">X = AB + AC + BC</span></div>
+<p>The module then draws the circuit using three AND terms feeding an OR gate. Exercises 5.10a and 5.10b continue the same design by converting it to universal gates and then drawing it with dual symbols.</p>
+
+<h2>18. How to Understand X = AB + AC + BC</h2>
+<div class="tip">AB = tanks A and B are low-level.<br>AC = tanks A and C are low-level.<br>BC = tanks B and C are low-level.<br><br>If <b>any one</b> of these pairs occurs, X becomes HIGH. When all three sensors are HIGH, the condition is also satisfied.</div>
+
+<h2>19. Multiple-Output Design</h2>
+<p>The module next gives a 3-input, 2-output problem with inputs A, B, C and outputs X, Y. For multiple outputs, each output should first go through the normal design process separately; the resulting circuits can then be combined.</p>
+<div class="card"><b>Module example:</b><br>For binary input 0, 1 or 2 → output is one greater.<br>For input 3, 4, 5 or 6 → output is three less.<br>Input 7 never exists → treat it as <b>don't care</b>.</div>
+<p>The slides map X and Y separately to K-Maps, simplify each output, draw each circuit and finally combine them.</p>
+
+<h2>20. Directly Deriving a Boolean Expression</h2>
+<p>Not every problem needs a truth table. The final slides show how wording can sometimes be translated directly into Boolean operators.</p>
+<div class="card"><b>Language clues:</b><br>AND → multiplication<br>OR → addition<br>NOT / complement → bar or inversion</div>
+
+<h2>21. Car Alarm Example</h2>
+<p>The module's problem says the alarm goes off if the alarm system is activated and any of the two doors or trunk is open, <b>or</b> if the vibration sensor is activated and the key is not in the ignition.</p>
+<p>The slide assigns:</p>
+<div class="card">X = AlarmGoOff<br>D = DriverDoorOpen<br>P = PassengerDoorOpen<br>T = TrunkOpen<br>A = AlarmActivated<br>V = Vibration<br>K = KeyInIgnition</div>
+<div class="ans"><b>Boolean expression shown in the module:</b><br><span class="eq">X = A(D + P + T) + VK̄</span></div>
+
+<h2>22. Translating English into Boolean Logic</h2>
+<p>The final slide gives simple language-to-expression examples. The exam skill is to identify conditions joined by words such as <b>AND</b>, <b>OR</b> and <b>NOT</b>, assign variables, then write the Boolean relationship.</p>
+<div class="tip"><b>Suggested method:</b> Circle OR → write +. Underline AND → write multiplication. Mark NOT → complement the relevant variable/expression.</div>
+
+<h2>23. Common Mistakes</h2>
+<ul>
+<li>Using AND-OR when the required final output is active LOW without accounting for inversion.</li>
+<li>Forgetting that NAND and NOR are universal because they can reproduce the basic gate functions.</li>
+<li>Converting SOP to NOR-only or POS to NAND-only when the module's direct implementation rule is SOP → NAND and POS → NOR.</li>
+<li>Adding/removing bubbles in a dual-symbol circuit without compensating for the inversion.</li>
+<li>Ignoring DeMorgan's theorem when reading alternate symbols.</li>
+<li>Starting circuit design before clearly defining inputs, outputs and their relationship.</li>
+<li>For multiple outputs, trying to simplify all outputs as one expression rather than handling each output separately first.</li>
+<li>Ignoring a stated impossible input that should be treated as don't care.</li>
+</ul>
+
+<h2>24. Mini Quiz</h2>
+<p><b>Q1.</b> Which form naturally maps to AND-OR logic?</p><div class="ans"><b>Answer:</b> SOP.</div>
+<p><b>Q2.</b> Which two gates are universal?</p><div class="ans"><b>Answer:</b> NAND and NOR.</div>
+<p><b>Q3.</b> What implementation is preferred for an SOP expression using one universal gate type?</p><div class="ans"><b>Answer:</b> NAND-only / NAND–NAND.</div>
+<p><b>Q4.</b> What implementation is preferred for POS?</p><div class="ans"><b>Answer:</b> NOR-only / NOR–NOR.</div>
+<p><b>Q5.</b> What should you determine first in a combinational-circuit word problem?</p><div class="ans"><b>Answer:</b> Inputs, outputs and the relationship between them.</div>
+<p><b>Q6.</b> Three-tank problem simplified output?</p><div class="ans"><b>Answer:</b> <span class="eq">X = AB + AC + BC</span>.</div>
+<p><b>Q7.</b> In a multiple-output problem, what should you do?</p><div class="ans"><b>Answer:</b> Design/simplify each output separately first, then combine the circuits.</div>
+<p><b>Q8.</b> What does a bubble indicate?</p><div class="ans"><b>Answer:</b> Logical inversion/complement.</div>
+
+<h2>25. 80/20 Exam Cheat Sheet</h2>
+<div class="card">
+<b>AND-OR</b> → SOP → active-HIGH style.<br>
+<b>AND-OR-Invert</b> → complemented AND-OR → active-LOW style.<br>
+<b>NAND + NOR</b> → universal gates.<br>
+<b>SOP → NAND-only.</b><br>
+<b>POS → NOR-only.</b><br>
+<b>NAND dual symbol</b> → Negative OR.<br>
+<b>NOR dual symbol</b> → Negative AND.<br>
+<b>Bubble</b> → inversion; connected bubbles can cancel.<br>
+<b>Design:</b> Understand → Expression/TT → Simplify → Circuit → Universal gate → Dual symbol.<br>
+<b>Multiple outputs:</b> solve each output separately, then combine.<br>
+<b>Three tanks:</b> X = AB + AC + BC.<br>
+<b>Word problem:</b> identify AND / OR / NOT.
+</div>
+
+<h2>26. Recommended Revision Order</h2>
+<div class="tip"><b>Round 1:</b> Master AND-OR vs AND-OR-Invert.<br>
+<b>Round 2:</b> Memorise NAND/NOR universal conversions.<br>
+<b>Round 3:</b> Practise bubble cancellation and dual symbols.<br>
+<b>Round 4:</b> Practise SOP → NAND and POS → NOR.<br>
+<b>Round 5:</b> Rebuild the three-tank example from the problem statement without looking at the answer.<br>
+<b>Round 6:</b> Practise multiple-output and direct Boolean-expression word problems.<br>
+<b>Round 7:</b> Attempt Exercises 5.1–5.11.</div>
+
+</main>
+<style id="study-home-style">
+.study-home{position:fixed;right:16px;bottom:16px;z-index:99999;background:#7b123f;color:#fff!important;
+text-decoration:none;padding:10px 14px;border-radius:999px;font:700 14px Arial,sans-serif;box-shadow:0 6px 22px #0003}
+.study-home:hover{filter:brightness(1.12)}
+</style>
+<a class="study-home" href="../index.html" aria-label="Back to module index">⌂ Module Index</a>
+</body></html>

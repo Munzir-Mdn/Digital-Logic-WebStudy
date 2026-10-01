@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SECR1013 Digital Logic — Module 4a Boolean Algebra</title>
+<style>
+:root{--m:#781633;--g:#c99a2e;--bg:#faf8f4;--ink:#202124;--green:#edf7ee}
+*{box-sizing:border-box}body{margin:0;font-family:Arial,sans-serif;background:var(--bg);color:var(--ink);line-height:1.6}
+header{background:var(--m);color:#fff;padding:32px;border-bottom:8px solid var(--g)}
+main{max-width:1100px;margin:auto;padding:30px}h1{margin:0 0 8px}h2{color:var(--m);border-bottom:2px solid #ddd;padding-bottom:7px;margin-top:34px}
+h3{color:#5c1329}.card,.warn,.ans{background:#fff;padding:14px 18px;margin:14px 0;border-left:5px solid var(--g)}
+.warn{background:#fff6dd}.ans{background:var(--green);border-left-color:#4c8a55}
+table{width:100%;border-collapse:collapse;background:#fff;margin:14px 0}th,td{border:1px solid #bbb;padding:9px}th{background:#eee}
+code{background:#eee;padding:2px 5px}.eq{font-family:Georgia,serif;font-size:1.08em}.small{font-size:.92em;color:#555}
+</style></head>
+<body><header><h1>SECR1013 Digital Logic</h1><div>Module 4a — Boolean Algebra Study Guide</div></header><main>
+
+<h2>1. Module Map</h2>
+<div class="card"><strong>Flow:</strong> Boolean terminology → basic laws → Boolean rules → DeMorgan's theorems → Boolean expression / truth table / logic circuit conversions.</div>
+
+<h2>2. Boolean Operations & Expressions</h2>
+<table><tr><th>Term</th><th>Meaning in the module</th></tr>
+<tr><td>Variable</td><td>A symbol representing a logical quantity; usually uppercase; value is 0 or 1.</td></tr>
+<tr><td>Complement</td><td>The inverse of a variable, indicated by an overbar or prime.</td></tr>
+<tr><td>Literal</td><td>A variable or its complement occurring in a term.</td></tr></table>
+<div class="card"><strong>Exam skill:</strong> Be able to count <em>variables</em>, <em>literals</em> and <em>terms</em> in a Boolean expression.</div>
+
+<h2>3. Basic Laws of Boolean Algebra</h2>
+<table><tr><th>Law</th><th>Addition</th><th>Multiplication</th></tr>
+<tr><td>Commutative</td><td class="eq">A + B = B + A</td><td class="eq">AB = BA</td></tr>
+<tr><td>Associative</td><td class="eq">A + (B + C) = (A + B) + C</td><td class="eq">A(BC) = (AB)C</td></tr>
+<tr><td>Distributive</td><td colspan="2" class="eq">A(B + C) = AB + AC</td></tr></table>
+<div class="warn"><strong>Suggested memory aid:</strong> Commutative = swap order; Associative = regroup; Distributive = multiply into brackets.</div>
+
+<h2>4. Core Boolean Rules from the Slides</h2>
+<table><tr><th>#</th><th>Rule</th></tr>
+<tr><td>1</td><td class="eq">A + 0 = A</td></tr><tr><td>2</td><td class="eq">A + 1 = 1</td></tr>
+<tr><td>3</td><td class="eq">A·0 = 0</td></tr><tr><td>4</td><td class="eq">A·1 = A</td></tr>
+<tr><td>5</td><td class="eq">A + A = A</td></tr><tr><td>6</td><td class="eq">A + Ā = 1</td></tr>
+<tr><td>7</td><td class="eq">A·A = A</td></tr><tr><td>8</td><td class="eq">A·Ā = 0</td></tr>
+<tr><td>9</td><td class="eq">Ā̄ = A</td></tr><tr><td>10</td><td class="eq">A + AB = A</td></tr>
+<tr><td>11</td><td class="eq">A + ĀB = A + B</td></tr>
+<tr><td>12</td><td class="eq">(A + B)(A + C) = A + BC</td></tr></table>
+<p>The module notes that these rules may be proven using truth tables, while rules 10–12 are also demonstrated using Boolean laws/rules.</p>
+
+<h2>5. DeMorgan's Theorems</h2>
+<table><tr><th>Theorem</th><th>Rule</th><th>Meaning</th></tr>
+<tr><td>I</td><td class="eq">overline(XY) = X̄ + Ȳ</td><td>Complement of a product → sum of complements.</td></tr>
+<tr><td>II</td><td class="eq">overline(X + Y) = X̄Ȳ</td><td>Complement of a sum → product of complements.</td></tr></table>
+<div class="card"><strong>Extended forms shown in the module:</strong><br>
+<span class="eq">overline(XYZ) = X̄ + Ȳ + Z̄</span><br>
+<span class="eq">overline(X + Y + Z) = X̄ȲZ̄</span></div>
+<div class="warn"><strong>Suggested exam mnemonic:</strong> “Break the bar, change the operator.” When a complement bar is broken across a group, AND ↔ OR and each variable is complemented.</div>
+
+<h2>6. Why DeMorgan Matters</h2>
+<p>The slides connect DeMorgan's theorems to reducing the variety/number of logic-gate ICs and mathematically verifying the relationships <strong>NAND ≡ negative-OR</strong> and <strong>NOR ≡ negative-AND</strong>.</p>
+
+<h2>7. Three Equivalent Representations</h2>
+<div class="card"><strong>Boolean Expression ⇄ Truth Table ⇄ Logic Circuit</strong></div>
+<p>A major part of this module is learning to move correctly between these representations.</p>
+
+<h2>8. Boolean Expression → Logic Circuit</h2>
+<p>The module says to treat the Boolean expression like a normal mathematical expression and follow operation precedence: brackets first, then multiplication (AND), then addition (OR).</p>
+<ol><li>Separate the expression into terms/subexpressions.</li><li>Implement complements with NOT gates.</li><li>Implement products with AND gates.</li><li>Implement sums with OR gates.</li><li>Follow the same operation sequence as the expression.</li></ol>
+<div class="card"><strong>Module example:</strong> <span class="eq">X = A(BC + D̄)</span>. The slide labels the gate-building sequence to show how the expression becomes a circuit.</div>
+
+<h2>9. Logic Circuit → Boolean Expression</h2>
+<p>Follow the module's <strong>left-to-right rule</strong>: begin at the left-most inputs and derive the expression of each intermediate gate until reaching the final output.</p>
+<div class="warn"><strong>Technique:</strong> Label every intermediate gate output. This prevents skipping a complement or bracket.</div>
+
+<h2>10. Boolean Expression → Truth Table</h2>
+<p>If there are <strong>x input variables</strong>, the number of possible input combinations is:</p>
+<div class="card"><span class="eq"><strong>n = 2<sup>x</sup></strong></span></div>
+<p>The module's construction method:</p>
+<ol><li>Identify <strong>x</strong> and <strong>n</strong>.</li><li>Find variable values that make the expression equal to 1.</li><li>List all <strong>n</strong> input combinations and fill the output; all other outputs are 0.</li></ol>
+<p>The table-making tip in the slides is to list the input combinations as binary values from <strong>0 to n−1</strong>.</p>
+
+<h2>11. Truth Table → Logic Circuit</h2>
+<p>The slides use output rows where <strong>X = 1</strong> to obtain product terms. The product terms are then ORed to form the Boolean expression, after which the circuit is implemented.</p>
+<ol><li>Find every truth-table row whose output is 1.</li><li>Create the corresponding product term.</li><li>OR all product terms together.</li><li>Implement the resulting expression using logic gates.</li></ol>
+
+<h2>12. Logic Circuit → Truth Table</h2>
+<p>The module gives two steps:</p>
+<ol><li>Derive the Boolean expression of the circuit output.</li><li>Use that Boolean expression to construct the truth table.</li></ol>
+
+<h2>13. Exercises Highlighted in the Module</h2>
+<table><tr><th>Exercise</th><th>Skill</th></tr>
+<tr><td>4a.1</td><td>Prove associative law <span class="eq">A(BC)=(AB)C</span> using a truth table.</td></tr>
+<tr><td>4a.2-1</td><td>Apply DeMorgan's theorems.</td></tr>
+<tr><td>4a.2-2</td><td>Prove Boolean expressions and show working.</td></tr>
+<tr><td>4a.3</td><td>Draw logic circuits from Boolean expressions.</td></tr>
+<tr><td>4a.4</td><td>Determine equivalent logic circuits.</td></tr>
+<tr><td>4a.5</td><td>Construct truth tables from expressions.</td></tr>
+<tr><td>4a.6</td><td>Draw a logic circuit from a truth table.</td></tr>
+<tr><td>4a.7</td><td>Construct a truth table from a logic circuit.</td></tr></table>
+
+<h2>14. Practice + Model Answers</h2>
+<p><strong>Q1.</strong> Simplify <span class="eq">A + A</span>.</p><div class="ans"><strong>Answer:</strong> <span class="eq">A</span> (Rule 5).</div>
+<p><strong>Q2.</strong> Simplify <span class="eq">A·Ā</span>.</p><div class="ans"><strong>Answer:</strong> <span class="eq">0</span> (Rule 8).</div>
+<p><strong>Q3.</strong> Simplify <span class="eq">A + AB</span>.</p><div class="ans"><strong>Answer:</strong> <span class="eq">A</span> (Rule 10).</div>
+<p><strong>Q4.</strong> Apply DeMorgan to <span class="eq">overline(ABC)</span>.</p><div class="ans"><strong>Answer:</strong> <span class="eq">Ā + B̄ + C̄</span>.</div>
+<p><strong>Q5.</strong> Apply DeMorgan to <span class="eq">overline(A+B+C)</span>.</p><div class="ans"><strong>Answer:</strong> <span class="eq">ĀB̄C̄</span>.</div>
+<p><strong>Q6.</strong> An expression has 4 input variables. How many truth-table rows?</p><div class="ans"><strong>Answer:</strong> <span class="eq">2⁴ = 16</span>.</div>
+<p><strong>Q7.</strong> What direction should be followed when deriving an expression from a circuit?</p><div class="ans"><strong>Answer:</strong> <strong>Left to right</strong>, beginning with the left-most inputs and progressing to the final output.</div>
+
+<h2>15. Common Mistakes</h2>
+<ul>
+<li>Treating Boolean <strong>+</strong> as ordinary arithmetic instead of OR.</li>
+<li>Forgetting that juxtaposition such as <span class="eq">AB</span> means AND.</li>
+<li>Breaking a DeMorgan complement bar without changing AND ↔ OR.</li>
+<li>Ignoring the scope/length of a complement bar.</li>
+<li>Drawing a circuit in a different operation order from the Boolean expression.</li>
+<li>Using the wrong number of truth-table rows; always calculate <span class="eq">2<sup>x</sup></span>.</li>
+<li>When converting a truth table to an expression, accidentally using rows where output = 0 instead of the module's output-1 product-term method.</li>
+</ul>
+
+<h2>16. Final Exam Cheat Sheet</h2>
+<div class="card">
+<strong>Swap:</strong> A+B=B+A, AB=BA<br>
+<strong>Regroup:</strong> A+(B+C)=(A+B)+C, A(BC)=(AB)C<br>
+<strong>Distribute:</strong> A(B+C)=AB+AC<br>
+<strong>Identity:</strong> A+0=A, A·1=A<br>
+<strong>Dominance:</strong> A+1=1, A·0=0<br>
+<strong>Idempotent:</strong> A+A=A, A·A=A<br>
+<strong>Complement:</strong> A+Ā=1, A·Ā=0<br>
+<strong>Double complement:</strong> Ā̄=A<br>
+<strong>Absorption:</strong> A+AB=A<br>
+<strong>DeMorgan:</strong> break bar + swap AND/OR<br>
+<strong>Truth table rows:</strong> 2<sup>x</sup><br>
+<strong>Circuit → expression:</strong> left-to-right
+</div>
+<p class="small">Prepared from the uploaded SECR1013 Digital Logic Module 4a slides.</p>
+</main>
+<style id="study-home-style">
+.study-home{position:fixed;right:16px;bottom:16px;z-index:99999;background:#7b123f;color:#fff!important;
+text-decoration:none;padding:10px 14px;border-radius:999px;font:700 14px Arial,sans-serif;box-shadow:0 6px 22px #0003}
+.study-home:hover{filter:brightness(1.12)}
+</style>
+<a class="study-home" href="../index.html" aria-label="Back to module index">⌂ Module Index</a>
+</body></html>

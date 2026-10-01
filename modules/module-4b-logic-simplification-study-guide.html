@@ -1,0 +1,172 @@
+<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SECR1013 Module 4b Logic Simplification</title>
+<style>
+:root{--m:#781633;--g:#c99a2e;--bg:#faf8f4;--ink:#202124;--green:#edf7ee;--blue:#eef5ff}
+*{box-sizing:border-box}body{margin:0;font-family:Arial,sans-serif;background:var(--bg);color:var(--ink);line-height:1.6}
+header{background:var(--m);color:white;padding:34px;border-bottom:8px solid var(--g)}main{max-width:1120px;margin:auto;padding:30px}
+h1{margin:0}h2{color:var(--m);border-bottom:2px solid #ddd;padding-bottom:7px;margin-top:34px}h3{color:#5c1329}
+.card,.tip,.ans,.warn{background:#fff;padding:14px 18px;margin:14px 0;border-left:5px solid var(--g)}
+.tip{background:var(--blue);border-left-color:#4d75a8}.ans{background:var(--green);border-left-color:#4c8a55}.warn{background:#fff6dd}
+table{width:100%;border-collapse:collapse;background:#fff;margin:14px 0}th,td{border:1px solid #bbb;padding:9px}th{background:#eee}
+.eq{font-family:Georgia,serif;font-size:1.08em}code{background:#eee;padding:2px 5px}.center{text-align:center}
+</style></head><body><header><h1>SECR1013 Digital Logic</h1><div>Module 4b — Logic Simplification | Exam-Focused Study Guide</div></header><main>
+
+<h2>1. Big Picture</h2>
+<div class="card"><b>Learning path:</b><br>Boolean simplification → SOP / POS → Standard SOP / POS → binary representation → Σ / Π notation → SOP ↔ POS → truth tables → K-Map → grouping → minimum expression → don't-care conditions → simplified combinational logic circuit.</div>
+
+<h2>2. Why Simplify?</h2>
+<p>In the module, simplification means reducing an expression to its simplest form or changing it to a more convenient form for efficient implementation. Boolean laws, rules and theorems are used.</p>
+<div class="tip"><b>Practical meaning:</b> simpler Boolean expression → fewer terms/variables → potentially fewer logic gates.</div>
+
+<h2>3. Boolean Rules — Quick Recall</h2>
+<table><tr><th>#</th><th>Rule</th><th>Use</th></tr>
+<tr><td>1</td><td>A + 0 = A</td><td>Identity</td></tr><tr><td>2</td><td>A + 1 = 1</td><td>Dominance</td></tr>
+<tr><td>3</td><td>A·0 = 0</td><td>Dominance</td></tr><tr><td>4</td><td>A·1 = A</td><td>Identity</td></tr>
+<tr><td>5</td><td>A + A = A</td><td>Idempotent</td></tr><tr><td>6</td><td>A + Ā = 1</td><td>Complement</td></tr>
+<tr><td>7</td><td>A·A = A</td><td>Idempotent</td></tr><tr><td>8</td><td>A·Ā = 0</td><td>Complement</td></tr>
+<tr><td>9</td><td>Ā̄ = A</td><td>Double complement</td></tr><tr><td>10</td><td>A + AB = A</td><td>Absorption</td></tr>
+<tr><td>11</td><td>A + ĀB = A + B</td><td>Simplification</td></tr><tr><td>12</td><td>(A+B)(A+C)=A+BC</td><td>Useful for POS</td></tr></table>
+
+<h2>4. SOP vs POS</h2>
+<table><tr><th></th><th>SOP</th><th>POS</th></tr>
+<tr><td>Full name</td><td>Sum-of-Products</td><td>Product-of-Sums</td></tr>
+<tr><td>Structure</td><td>Product terms are summed</td><td>Sum terms are multiplied</td></tr>
+<tr><td>Example</td><td>AB + BCD + AC</td><td>(A+B)(B+C+D)(A+C)</td></tr>
+<tr><td>Circuit idea</td><td>AND → OR</td><td>OR → AND</td></tr>
+<tr><td>K-Map focus</td><td>Group 1s</td><td>Group 0s</td></tr></table>
+<div class="warn"><b>Remember:</b> product term = Boolean multiplication of literals. Sum term = Boolean addition of literals.</div>
+
+<h2>5. Standard SOP and Standard POS</h2>
+<p>A form is <b>standard</b> when <b>all variables appear in every product term (SOP) or every sum term (POS)</b>.</p>
+<h3>Standard SOP</h3>
+<p>For each non-standard product term, add missing variables using <span class="eq">X + X̄ = 1</span>, then expand. Repeat until every term contains all variables.</p>
+<div class="card"><b>Pattern:</b> If term AB is missing C, use <span class="eq">AB(C+C̄)=ABC+ABC̄</span>.</div>
+<h3>Standard POS</h3>
+<p>The slides use Boolean rules including <span class="eq">X·X̄=0</span> and <span class="eq">A+BC=(A+B)(A+C)</span> to introduce missing variables into sum terms.</p>
+
+<h2>6. Binary Meaning of Standard Forms</h2>
+<div class="card"><b>SOP:</b> identify binary combinations that make each product term = <b>1</b>.<br><b>POS:</b> identify binary combinations that make each sum term = <b>0</b>.</div>
+<p>This is the key connection between Boolean expressions, truth tables, Σ/Π notation and K-Maps.</p>
+
+<h2>7. Σ (Sigma) and Π (Pi) Representation</h2>
+<table><tr><th>Notation</th><th>Represents</th><th>Look for</th></tr>
+<tr><td>Σ</td><td>SOP / minterm indices</td><td>Rows where output = 1</td></tr>
+<tr><td>Π</td><td>POS / maxterm indices</td><td>Rows where output = 0</td></tr></table>
+<div class="tip"><b>Fast memory:</b> Σ → SOP → 1s. Π → POS → 0s.</div>
+
+<h2>8. Converting Standard SOP ↔ POS</h2>
+<p>The module's method is based on complementary binary-index sets.</p>
+<ol><li>Determine binary numbers represented by the given standard terms.</li><li>Find all possible binary combinations not included.</li><li>Use the missing combinations to construct the equivalent form.</li></ol>
+<div class="card"><b>Concept:</b> Binary values present in a standard SOP are absent from its equivalent standard POS, and vice versa.</div>
+
+<h2>9. Boolean Expression → Truth Table</h2>
+<ol><li>Determine the variables and all input combinations.</li><li>Convert the expression to Standard SOP/POS.</li><li>For SOP, locate combinations making product terms = 1. For POS, locate combinations making sum terms = 0.</li><li>Fill the remaining rows with 0 for SOP or 1 for POS.</li></ol>
+<div class="tip">For <b>n</b> variables, number of combinations/cells = <b>2ⁿ</b>.</div>
+
+<h2>10. Truth Table → Standard Expression</h2>
+<table><tr><th>Form</th><th>Rows selected</th><th>Binary → literal rule</th></tr>
+<tr><td>SOP</td><td>X = 1</td><td>1 → variable; 0 → complemented variable</td></tr>
+<tr><td>POS</td><td>X = 0</td><td>0 → variable; 1 → complemented variable</td></tr></table>
+
+<h2>11. Karnaugh Map (K-Map)</h2>
+<p>The module describes a K-Map as an array of cells representing all possible input/output values, similar to a truth table. It covers K-Maps with 2, 3, 4 or 5 variables.</p>
+<table><tr><th>Variables</th><th>Cells</th></tr><tr><td>2</td><td>4</td></tr><tr><td>3</td><td>8</td></tr><tr><td>4</td><td>16</td></tr><tr><td>5</td><td>32</td></tr></table>
+<div class="warn"><b>Critical:</b> K-Map ordering uses Gray-code adjacency such as <b>00, 01, 11, 10</b>, not ordinary binary order.</div>
+
+<h2>12. K-Map Adjacency</h2>
+<p>Cells are adjacent when they differ by only <b>one variable</b>. For 4-variable or larger maps, edges wrap: top and bottom cells and left and right cells can be adjacent.</p>
+<div class="tip"><b>Think of the K-Map like a folded surface:</b> opposite edges touch. Diagonal cells are not adjacent.</div>
+
+<h2>13. Mapping Expressions onto K-Map</h2>
+<p><b>Standard SOP:</b> determine each product term's binary value and place <b>1</b> in the matching cell.</p>
+<p><b>Standard POS:</b> determine each sum term's binary value and place <b>0</b> in the matching cell.</p>
+<p>For a non-standard expression, the module first expands missing variables numerically/into standard form before mapping.</p>
+
+<h2>14. The 3-Step K-Map Minimization Method</h2>
+<div class="card"><b>STEP 1:</b> Group 1s for SOP / 0s for POS.<br><b>STEP 2:</b> Determine the product/sum term for each group.<br><b>STEP 3:</b> Combine the resulting terms.</div>
+
+<h2>15. Grouping Rules — Very Important</h2>
+<ul><li>Group sizes must be powers of two: <b>1, 2, 4, 8, 16, ...</b></li>
+<li>Every required 1 (SOP) must be included in at least one group.</li>
+<li>Prefer the <b>largest possible groups</b>.</li>
+<li>Groups may overlap when useful.</li>
+<li>Cells in a group must satisfy K-Map adjacency.</li>
+<li>Wrap-around grouping across map edges is allowed.</li></ul>
+<div class="warn"><b>Exam strategy:</b> BIGGEST group first. Bigger group → fewer variables remain → simpler term.</div>
+
+<h2>16. How Group Size Removes Variables — SOP</h2>
+<table><tr><th>Map</th><th>Group size</th><th>Result</th></tr>
+<tr><td>3 variables</td><td>1 / 2 / 4 / 8</td><td>3-var / 2-var / 1-var / 1</td></tr>
+<tr><td>4 variables</td><td>1 / 2 / 4 / 8 / 16</td><td>4-var / 3-var / 2-var / 1-var / 1</td></tr></table>
+<p>Within a group, retain only variables that stay in the same form throughout the group. Variables that change between complemented and uncomplemented forms disappear.</p>
+
+<h2>17. Minimum SOP vs Minimum POS</h2>
+<div class="card"><b>Minimum SOP:</b> group <b>1s</b> → derive product term per group → OR the terms.<br><b>Minimum POS:</b> group <b>0s</b> → derive sum term per group → multiply the terms.</div>
+<p>The slides also show that a mapped SOP can be converted to equivalent POS and vice versa, allowing comparison of implementations.</p>
+
+<h2>18. Mapping Directly from a Truth Table</h2>
+<p>Instead of first writing a standard expression, a truth table can be mapped directly: place the output values into their corresponding K-Map cells, then group the relevant 1s or 0s.</p>
+
+<h2>19. Don't-Care Conditions</h2>
+<p>The module uses invalid BCD combinations as an example of states that never occur. These can be marked as <b>X</b> (don't care).</p>
+<div class="card"><b>For SOP:</b> treat X as 1 when doing so creates a larger useful group; otherwise it can behave as 0.<br><b>Goal:</b> use don't-care cells only when they improve simplification.</div>
+<div class="tip"><b>Example context from the slides:</b> invalid BCD inputs include 1010 through 1111.</div>
+
+<h2>20. Simplifying a Combinational Logic Circuit</h2>
+<p>The final section applies the same ideas to actual combinational circuits. The workflow is:</p>
+<div class="card">Logic circuit → derive Boolean expression → simplify using Boolean algebra / DeMorgan or K-Map → obtain simpler expression → implement simplified circuit.</div>
+
+<h2>21. Exercises in the Module</h2>
+<table><tr><th>Exercise</th><th>Main skill</th></tr>
+<tr><td>4b.1–4b.2</td><td>Compare original and simplified logic circuits</td></tr>
+<tr><td>4b.3</td><td>Convert expressions to SOP</td></tr><tr><td>4b.4</td><td>Convert to standard SOP</td></tr>
+<tr><td>4b.5</td><td>Convert to standard POS</td></tr><tr><td>4b.6–4b.8</td><td>Σ / Π representation</td></tr>
+<tr><td>4b.9</td><td>SOP → equivalent POS</td></tr><tr><td>4b.10–4b.11</td><td>Expression ↔ truth table</td></tr>
+<tr><td>4b.12–4b.14</td><td>K-Map mapping and minimization</td></tr><tr><td>4b.15–4b.17</td><td>K-Map vs Boolean-algebra simplification</td></tr>
+<tr><td>4b.18–4b.20</td><td>Don't-care K-Map problems</td></tr><tr><td>4b.21</td><td>Simplify combinational logic circuit using K-Map</td></tr></table>
+
+<h2>22. Mini Practice</h2>
+<p><b>Q1.</b> Is <span class="eq">AB + ĀC</span> SOP?</p><div class="ans"><b>Answer:</b> Yes. It is a sum of product terms.</div>
+<p><b>Q2.</b> Is <span class="eq">(A+B)(B+C)</span> POS?</p><div class="ans"><b>Answer:</b> Yes. It is a product of sum terms.</div>
+<p><b>Q3.</b> How many cells are in a 4-variable K-Map?</p><div class="ans"><b>Answer:</b> 2⁴ = <b>16</b>.</div>
+<p><b>Q4.</b> Which values are grouped for minimum SOP?</p><div class="ans"><b>Answer:</b> <b>1s</b>.</div>
+<p><b>Q5.</b> Which values are grouped for minimum POS?</p><div class="ans"><b>Answer:</b> <b>0s</b>.</div>
+<p><b>Q6.</b> Valid group sizes?</p><div class="ans"><b>Answer:</b> Powers of two: <b>1, 2, 4, 8, 16, ...</b></div>
+<p><b>Q7.</b> Why prefer a group of 8 over two groups of 4 when a valid group of 8 covers the needed cells?</p><div class="ans"><b>Answer:</b> The larger group removes more changing variables and yields a simpler term.</div>
+<p><b>Q8.</b> What is the purpose of don't-care cells?</p><div class="ans"><b>Answer:</b> They may be included when useful to form larger groups and obtain a simpler expression.</div>
+
+<h2>23. Common Mistakes</h2>
+<ul><li>Using binary order 00,01,10,11 instead of K-Map Gray order <b>00,01,11,10</b>.</li>
+<li>Grouping diagonally.</li><li>Making groups of 3, 5, 6, etc.</li><li>Ignoring wrap-around adjacency.</li>
+<li>Choosing many small groups when a larger valid group exists.</li><li>Forgetting SOP groups 1s while POS groups 0s.</li>
+<li>Mapping a non-standard expression without accounting for missing variables.</li><li>Using don't-care cells even when they do not improve simplification.</li></ul>
+
+<h2>24. 80/20 Exam Cheat Sheet</h2>
+<div class="card">
+<b>SOP</b> = sum of products = truth-table 1s = Σ = group 1s.<br>
+<b>POS</b> = product of sums = truth-table 0s = Π = group 0s.<br>
+<b>Standard</b> = every term contains every variable.<br>
+<b>K-Map cells</b> = 2ⁿ.<br>
+<b>Gray order</b> = 00 → 01 → 11 → 10.<br>
+<b>Valid groups</b> = 1, 2, 4, 8, 16...<br>
+<b>Best group</b> = largest valid group.<br>
+<b>Edges wrap</b>; diagonals do not.<br>
+<b>Don't care X</b> = use only if it helps create a simpler group.<br>
+<b>Final goal</b> = fewest terms with the fewest variables.
+</div>
+
+<h2>25. Recommended Revision Sequence</h2>
+<div class="tip"><b>Round 1:</b> Memorize SOP/POS + standard forms.<br>
+<b>Round 2:</b> Master binary ↔ terms ↔ truth table.<br>
+<b>Round 3:</b> Memorize K-Map Gray order and adjacency.<br>
+<b>Round 4:</b> Practise grouping 1s/0s until automatic.<br>
+<b>Round 5:</b> Do Exercises 4b.13–4b.20 without notes.<br>
+<b>Round 6:</b> Finish with combinational-circuit simplification.</div>
+</main>
+<style id="study-home-style">
+.study-home{position:fixed;right:16px;bottom:16px;z-index:99999;background:#7b123f;color:#fff!important;
+text-decoration:none;padding:10px 14px;border-radius:999px;font:700 14px Arial,sans-serif;box-shadow:0 6px 22px #0003}
+.study-home:hover{filter:brightness(1.12)}
+</style>
+<a class="study-home" href="../index.html" aria-label="Back to module index">⌂ Module Index</a>
+</body></html>

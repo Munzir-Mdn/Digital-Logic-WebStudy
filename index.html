@@ -1,6 +1,68 @@
-<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>SECR1013 Digital Logic Study</title><link rel="stylesheet" href="assets/css/style.css"></head>
-<body><header class="top"><div class="wrap"><span class="pill">GitHub Pages Ready</span><h1>SECR1013 Digital Logic</h1><p>Interactive Web Study — notes, interactive labs, flashcards, quiz and exam revision.</p><div class="heroBtns"><a class="btn gold" href="modules/module-7.html">Start Module 7</a></div></div></header>
-<main><section class="card"><h2>Modules</h2><div class="grid">
-<div class="card"><span class="pill">Available</span><h3>Module 7</h3><p>Latches and Flip-Flops</p><a class="btn" href="modules/module-7.html">Open Web Study</a></div>
-<div class="card"><span class="pill">Next</span><h3>Modules 1–6</h3><p>The same reusable layout can be populated with the existing study-guide content.</p></div>
-</div></section><section class="card"><h2>About</h2><p>A static HTML/CSS/JavaScript study site designed for deployment on GitHub Pages. Learning progress and quiz score are stored locally in the browser.</p></section></main><footer class="footer">SECR1013 Digital Logic Interactive Web Study</footer></body></html>
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SECR1013 Digital Logic — Web Study</title>
+<style>
+:root{--maroon:#781633;--gold:#d2a12c;--ink:#1c2430;--muted:#687386;--line:#e1e5eb;--bg:#f6f7fb}
+*{box-sizing:border-box}body{margin:0;font-family:Inter,Segoe UI,Arial,sans-serif;background:var(--bg);color:var(--ink)}
+.hero{background:linear-gradient(135deg,#5f102d,#8e1749);color:white;padding:55px 22px 45px}
+.wrap{max-width:1180px;margin:auto}.eyebrow{font-weight:800;color:#ffe08a;letter-spacing:.08em;text-transform:uppercase}
+h1{font-size:clamp(2.3rem,6vw,4.8rem);line-height:1.03;margin:10px 0}.hero p{max-width:760px;font-size:1.08rem;opacity:.92}
+.stats{display:flex;gap:10px;flex-wrap:wrap;margin-top:22px}.stat{background:#ffffff18;border:1px solid #ffffff2e;padding:8px 12px;border-radius:999px}
+main{max-width:1180px;margin:auto;padding:25px 20px 50px}.toolbar{display:flex;gap:12px;flex-wrap:wrap;align-items:center;margin-bottom:20px}
+input{flex:1;min-width:230px;padding:13px 15px;border:1px solid var(--line);border-radius:12px;font-size:1rem;background:white}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:16px}
+.module-card{background:white;border:1px solid var(--line);border-radius:18px;padding:20px;min-height:205px;display:flex;flex-direction:column;box-shadow:0 5px 20px #1720330a;transition:.18s}
+.module-card:hover{transform:translateY(-3px);box-shadow:0 10px 28px #17203318}.tag{align-self:flex-start;background:#f4e9ee;color:var(--maroon);font-weight:800;font-size:.78rem;padding:5px 9px;border-radius:999px}
+.num{font-size:.88rem;color:var(--muted);font-weight:800;margin-top:18px}h2{color:var(--maroon);font-size:1.3rem;margin:6px 0 18px}.open{margin-top:auto;background:var(--maroon);color:white;text-decoration:none;font-weight:800;padding:10px 13px;border-radius:11px;text-align:center}
+.note{background:#fff9dd;border-left:5px solid var(--gold);padding:14px 16px;border-radius:12px;margin:22px 0}footer{text-align:center;color:var(--muted);padding:25px}
+.hidden{display:none!important}
+</style></head>
+<body><header class="hero"><div class="wrap"><div class="eyebrow">SECR1013 • Digital Logic</div><h1>Interactive Web Study</h1>
+<p>All study files are now combined into one GitHub Pages site. Choose a module below to open its dedicated study page.</p>
+<div class="stats"><span class="stat">13 module pages</span><span class="stat">Modules 1–9</span><span class="stat">Static HTML • GitHub Pages</span></div></div></header>
+<main><div class="toolbar"><input id="search" type="search" placeholder="Search module, e.g. Boolean, Counter, Shift Register…" aria-label="Search modules"></div>
+<div class="note"><b>Navigation:</b> this page is the main module index. Every module can return here using the Home/Module Index link.</div>
+<section class="grid" id="moduleGrid"><article class="module-card" data-search="module 1 introductory concepts foundations">
+<div class="tag">Foundations</div><div class="num">Module 1</div>
+<h2>Introductory Concepts</h2><a class="open" href="modules/module-1-digital-logic-study-guide.html">Open module →</a></article>
+<article class="module-card" data-search="module 2a number systems number systems">
+<div class="tag">Number Systems</div><div class="num">Module 2a</div>
+<h2>Number Systems</h2><a class="open" href="modules/module-2a-number-systems-study-guide.html">Open module →</a></article>
+<article class="module-card" data-search="module 2b data organization &amp; codes number systems">
+<div class="tag">Number Systems</div><div class="num">Module 2b</div>
+<h2>Data Organization &amp; Codes</h2><a class="open" href="modules/module-2b-data-organization-codes-study-guide.html">Open module →</a></article>
+<article class="module-card" data-search="module 2c arithmetic operations number systems">
+<div class="tag">Number Systems</div><div class="num">Module 2c</div>
+<h2>Arithmetic Operations</h2><a class="open" href="modules/module-2c-arithmetic-operations-study-guide.html">Open module →</a></article>
+<article class="module-card" data-search="module 3 logic gates logic">
+<div class="tag">Logic</div><div class="num">Module 3</div>
+<h2>Logic Gates</h2><a class="open" href="modules/module-3-logic-gates-study-guide.html">Open module →</a></article>
+<article class="module-card" data-search="module 4a boolean algebra logic">
+<div class="tag">Logic</div><div class="num">Module 4a</div>
+<h2>Boolean Algebra</h2><a class="open" href="modules/module-4a-boolean-algebra-study-guide.html">Open module →</a></article>
+<article class="module-card" data-search="module 4b logic simplification logic">
+<div class="tag">Logic</div><div class="num">Module 4b</div>
+<h2>Logic Simplification</h2><a class="open" href="modules/module-4b-logic-simplification-study-guide.html">Open module →</a></article>
+<article class="module-card" data-search="module 5 combinational logic circuits combinational">
+<div class="tag">Combinational</div><div class="num">Module 5</div>
+<h2>Combinational Logic Circuits</h2><a class="open" href="modules/module-5-combinational-logic-circuits-study-guide.html">Open module →</a></article>
+<article class="module-card" data-search="module 6 functions of combinational logic combinational">
+<div class="tag">Combinational</div><div class="num">Module 6</div>
+<h2>Functions of Combinational Logic</h2><a class="open" href="modules/module-6-functions-of-combinational-logic-study-guide.html">Open module →</a></article>
+<article class="module-card" data-search="module 7 latches &amp; flip-flops sequential">
+<div class="tag">Sequential</div><div class="num">Module 7</div>
+<h2>Latches &amp; Flip-Flops</h2><a class="open" href="modules/module-7.html">Open module →</a></article>
+<article class="module-card" data-search="module 8a counters — intro &amp; asynchronous counters">
+<div class="tag">Counters</div><div class="num">Module 8a</div>
+<h2>Counters — Intro &amp; Asynchronous</h2><a class="open" href="modules/module-8a.html">Open module →</a></article>
+<article class="module-card" data-search="module 8b synchronous counters counters">
+<div class="tag">Counters</div><div class="num">Module 8b</div>
+<h2>Synchronous Counters</h2><a class="open" href="modules/module-8b.html">Open module →</a></article>
+<article class="module-card" data-search="module 9 shift registers sequential">
+<div class="tag">Sequential</div><div class="num">Module 9</div>
+<h2>Shift Registers</h2><a class="open" href="modules/module-9.html">Open module →</a></article></section></main>
+<footer>SECR1013 Digital Logic • Unified Web Study</footer>
+<script>
+const q=document.getElementById('search');
+q.addEventListener('input',()=>{const s=q.value.trim().toLowerCase();document.querySelectorAll('.module-card').forEach(c=>c.classList.toggle('hidden',!c.dataset.search.includes(s)))})
+</script></body></html>

@@ -1,0 +1,42 @@
+<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>SECR1013 Module 2c Study Guide</title>
+<style>body{font-family:Arial,sans-serif;line-height:1.58;max-width:1050px;margin:auto;padding:28px;color:#222}h1,h2{color:#7b1734}h1{border-bottom:5px solid #c99a2e;padding-bottom:10px}.card{background:#f7f7f7;border-left:5px solid #c99a2e;padding:14px 18px;margin:14px 0}.ans{background:#edf7ee;border-left:4px solid #4c8a55;padding:10px 14px;margin:8px 0}.warn{background:#fff6dd;border-left:5px solid #c99a2e;padding:12px 15px}table{border-collapse:collapse;width:100%;margin:14px 0}th,td{border:1px solid #bbb;padding:9px}th{background:#eee}code{background:#eee;padding:2px 5px}</style></head><body>
+<h1>SECR1013 Digital Logic — Module 2c: Arithmetic Operations</h1>
+<h2>1. Chapter Overview</h2><p>This module covers integer representation, unsigned and signed numbers, sign-magnitude, one's complement, two's complement, binary addition and subtraction.</p>
+<h2>2. Integer Representation</h2><div class="card"><strong>Main structure:</strong> Integer → unsigned or signed. Signed representations covered are <strong>sign-magnitude, one's complement and two's complement</strong>.</div>
+<h2>3. Unsigned Binary Numbers</h2><p>Unsigned numbers have no negative values. For an <em>n</em>-bit unsigned binary number, the module gives the range:</p><div class="card"><code>0 ≤ x ≤ 2ⁿ − 1</code></div>
+<table><tr><th>Bits</th><th>Lower bound</th><th>Upper bound</th></tr><tr><td>4</td><td>0</td><td>15</td></tr><tr><td>8</td><td>0</td><td>255</td></tr><tr><td>10</td><td>0</td><td>1023</td></tr><tr><td>12</td><td>0</td><td>4095</td></tr><tr><td>16</td><td>0</td><td>65535</td></tr></table>
+<h2>4. Signed Numbers</h2><p>The module uses the MSB as a sign indicator: <strong>0 = positive</strong>, <strong>1 = negative</strong>. It then introduces three signed-number representations.</p>
+<h2>5. Sign-Magnitude</h2><p>The sign bit is separated from the magnitude. A negative number keeps the same magnitude bits as the corresponding positive number but changes the sign bit from 0 to 1.</p>
+<div class="card"><strong>8-bit example:</strong> +25 = <code>00011001</code>; −25 = <code>10011001</code>.</div>
+<h2>6. One's Complement</h2><p>Positive numbers are represented as in positive sign-magnitude. To form a negative number, complement every bit of the corresponding positive representation: <strong>0 → 1 and 1 → 0</strong>.</p>
+<div class="card">+25 = <code>00011001</code><br>−25 in 1's complement = <code>11100110</code></div>
+<h2>7. Two's Complement</h2><p>The process shown in the module is:</p><ol><li>Start with the positive binary representation.</li><li>Convert it to one's complement.</li><li>Add 1.</li></ol>
+<div class="card">+25 = <code>00011001</code><br>1's complement = <code>11100110</code><br>+1 → −25 in 2's complement = <strong><code>11100111</code></strong></div>
+<div class="warn"><strong>Suggested memory aid:</strong> “2's = Flip + 1.”</div>
+<h2>8. Comparing the Three Signed Representations</h2>
+<table><tr><th>Method</th><th>How a negative value is formed</th></tr><tr><td>Sign-magnitude</td><td>Change the sign bit to 1; retain magnitude bits</td></tr><tr><td>1's complement</td><td>Invert every bit of the positive representation</td></tr><tr><td>2's complement</td><td>Invert every bit, then add 1</td></tr></table>
+<h2>9. Binary Addition</h2>
+<table><tr><th>A</th><th>B</th><th>Sum</th></tr><tr><td>0</td><td>0</td><td>0</td></tr><tr><td>0</td><td>1</td><td>1</td></tr><tr><td>1</td><td>0</td><td>1</td></tr><tr><td>1</td><td>1</td><td>10 (sum 0, carry 1)</td></tr></table>
+<p>The module then applies addition using fixed-width 2's-complement representation, including examples such as +127 + 74 and 60 + (−30).</p>
+<h2>10. Binary Subtraction</h2><p>The slides state that subtraction in a digital system is performed using <strong>2's complement and addition</strong>. The carry from the MSB (signed bit) is deleted.</p>
+<div class="card"><strong>Core procedure:</strong> <code>A − B = A + (2's complement of B)</code>, using the specified bit width.</div>
+<h2>11. Worked Exercise — Source Exercise 2c.1</h2><p>Determine the decimal value of <code>10010101</code> expressed in sign-magnitude.</p><div class="ans"><strong>Answer:</strong> MSB = 1, so it is negative. Magnitude = <code>0010101₂ = 21₁₀</code>. Therefore the value is <strong>−21</strong>.</div>
+<h2>12. Worked Exercise — Source Exercise 2c.2</h2><p>Express −39 as an 8-bit number.</p>
+<table><tr><th>Representation</th><th>Result</th></tr><tr><td>+39 binary</td><td><code>00100111</code></td></tr><tr><td>Sign-magnitude −39</td><td><strong><code>10100111</code></strong></td></tr><tr><td>1's complement −39</td><td><strong><code>11011000</code></strong></td></tr><tr><td>2's complement −39</td><td><strong><code>11011001</code></strong></td></tr></table>
+<h2>13. Practice</h2>
+<p><strong>Q1.</strong> What is the unsigned range for 10 bits?</p><div class="ans"><strong>Answer:</strong> 0 to 2¹⁰−1 = <strong>0 to 1023</strong>.</div>
+<p><strong>Q2.</strong> Represent −25 using 8-bit sign-magnitude.</p><div class="ans"><strong>Answer:</strong> <code>10011001</code>.</div>
+<p><strong>Q3.</strong> Represent −25 using 8-bit 1's complement.</p><div class="ans"><strong>Answer:</strong> +25 = 00011001 → invert → <strong>11100110</strong>.</div>
+<p><strong>Q4.</strong> Represent −25 using 8-bit 2's complement.</p><div class="ans"><strong>Answer:</strong> 00011001 → 11100110 → +1 = <strong>11100111</strong>.</div>
+<p><strong>Q5.</strong> Perform 24 − 17 using 6-bit 2's complement.</p><div class="ans"><strong>Answer:</strong> 24 = 011000; 17 = 010001; 2's complement of 17 = 101111. 011000 + 101111 = 1 000111. Delete the carry → <strong>000111₂ = 7₁₀</strong>.</div>
+<p><strong>Q6.</strong> Perform −9 − 15 using 6-bit 2's complement.</p><div class="ans"><strong>Answer:</strong> −9 = 110111; −15 = 110001. Addition gives <code>1 101000</code>; delete the carry → <strong>101000₂</strong>, representing <strong>−24</strong>.</div>
+<h2>14. Common Mistakes</h2><ul><li>Forgetting the fixed bit width before forming complements.</li><li>Treating sign-magnitude as though all bits form the magnitude.</li><li>Stopping after bit inversion when the question asks for 2's complement—remember to add 1.</li><li>Using ordinary subtraction when the module asks for 2's-complement subtraction.</li><li>Forgetting to discard the carry from the MSB in the subtraction procedure shown in the slides.</li></ul>
+<h2>15. Final Exam Recap</h2><div class="card"><strong>Unsigned:</strong> 0 → 2ⁿ−1<br><strong>Signed MSB:</strong> 0 positive, 1 negative<br><strong>Sign-magnitude:</strong> sign + magnitude<br><strong>1's complement:</strong> flip bits<br><strong>2's complement:</strong> flip bits + 1<br><strong>Subtraction:</strong> add the 2's complement and discard the specified MSB carry</div>
+
+<style id="study-home-style">
+.study-home{position:fixed;right:16px;bottom:16px;z-index:99999;background:#7b123f;color:#fff!important;
+text-decoration:none;padding:10px 14px;border-radius:999px;font:700 14px Arial,sans-serif;box-shadow:0 6px 22px #0003}
+.study-home:hover{filter:brightness(1.12)}
+</style>
+<a class="study-home" href="../index.html" aria-label="Back to module index">⌂ Module Index</a>
+</body></html>
