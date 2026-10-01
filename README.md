@@ -1,5 +1,3 @@
-Boleh. Untuk README GitHub projek ini, saya cadangkan struktur seperti berikut supaya nampak lebih profesional dan sesuai dijadikan portfolio.
-
 # SECR1013 Digital Logic — Interactive WebStudy
 
 An interactive web-based study platform for **SECR1013 Digital Logic**, designed to make Digital Logic concepts easier to understand through structured notes, interactive simulations, flashcards, quizzes, and exam-focused revision.
